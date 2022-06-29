@@ -1,0 +1,226 @@
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+.mat-table {
+    overflow: auto;
+    max-height: 500px;
+}
+
+.element-row {
+    position: relative !important;
+}
+
+.element-row:not(.expanded) {
+    cursor: pointer;
+}
+
+.element-row:not(.expanded):hover {
+    background: #f5f5f5;
+}
+
+.element-row.expanded {
+    border-bottom-color: transparent;
+}
+
+tr.detail-row {
+    /* height: 0; */
+    /* no */
+    flex-basis: 0;
+    /* yes */
+    min-height: initial;
+    /* override mat-row styling */
+}
+
+table {
+    width: 100%;
+}
+
+tr.example-detail-row {
+    height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+    background: #f5f5f5;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+    background: #efefef;
+}
+
+.example-element-row td {
+    border-bottom-width: 0;
+    font-weight: 500 !important;
+    color: #404040 !important;
+    font-size: 13px !important;
+}
+
+.example-element-detail {
+    overflow: hidden;
+    display: flex;
+}
+
+.example-element-diagram {
+    min-width: 80px;
+    border: 2px solid black;
+    padding: 8px;
+    font-weight: lighter;
+    margin: 8px 0;
+    height: 104px;
+}
+
+.example-element-symbol {
+    font-weight: bold;
+    font-size: 40px;
+    line-height: normal;
+}
+
+.example-element-description {
+    padding: 16px;
+}
+
+.example-element-description-attribution {
+    opacity: 0.5;
+}
+
+.file-icon img {
+    padding-right: 10px;
+    float: left;
+}
+
+table {
+    width: 100%;
+}
+
+tr.example-detail-row {
+    height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+    background: #f5f5f5;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+    background: #efefef;
+}
+
+.example-element-row td {
+    border-bottom-width: 0;
+}
+
+.example-element-detail {
+    overflow: hidden;
+    position: relative !important;
+    display: grid !important;
+    width: 100%;
+}
+
+.example-element-diagram {
+    min-width: 80px;
+    border: 2px solid black;
+    padding: 8px;
+    font-weight: lighter;
+    margin: 8px 0;
+    height: 104px;
+}
+
+.example-element-symbol {
+    font-weight: bold;
+    font-size: 40px;
+    line-height: normal;
+}
+
+.example-element-description {
+    padding: 15px;
+}
+
+.example-element-description-attribution {
+    opacity: 0.5;
+}
+
+.mat-sort-header-content {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+.filter_class.jbsrc {
+    border-radius: 5px;
+    position: relative;
+}
+
+.checklist mat-form-field {
+    background: #567df4 !important;
+    height: 40px;
+    padding: 0 0px;
+    border-radius: 3px;
+    width: 70%;
+    float: right;
+}
+
+#businesstype {
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.checklist ::ng-deep .mat-select-value-text {
+    color: white !important;
+}
+
+.checklist ::ng-deep .mat-select-placeholder {
+    color: white !important;
+}
+
+.checklist ::ng-deep .mat-select-arrow {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid;
+    margin: 12px 4px;
+    color: white;
+}
+
+.checklist ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    top: 0 !important;
+}
+
+.checklist ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-end,
+.checklist ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-start {
+    border-width: 0 !important;
+}
+
+.myPanelClass {
+    margin: 25px 0px;
+}
+
+.mySelectClass {
+    padding-top: 1px;
+}
+
+.dropdown {
+    width: 150px;
+    height: 40px;
+    background-color: white;
+    text-align: center;
+    border: 1px solid grey;
+    vertical-align: middle;
+}
+
+.checklist ::ng-deep .mat-form-field-infix {
+    padding: 0 !important;
+}
+
+.checklist ::ng-deep .mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover .mat-form-field-outline-thick,
+.checklist ::ng-deep .mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex .mat-form-field-outline-thick {
+    opacity: 0;
+}
+
+.checklist ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: transparent;
+}

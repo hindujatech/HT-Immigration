@@ -1,0 +1,36 @@
+<div class="container box-width">
+    <div class="row">
+        <div class="col-md-8">
+            <img class="login-left" src="../../assets/bg-element.png">
+        </div>
+        <div class="col-md-4 log-form-div">
+            <form [formGroup]="formdata">
+                <div class="mat-elevation-z8">
+                    <div class="bg-white pd-30">
+
+                        <div class="pd-xs-x-30 pd-y-10">
+                            <p class="mg-b-0" style="font-size:20px; font-weight:600;color:#333; padding-left: 75px;">Login to your account</p>
+                            <br>
+                            <div class="form-group">
+                                <mat-form-field class="inputField">
+                                    <input matInput type="text" name="user_name" formControlName="user_name" class="form-control inputField" maxlength="9" placeholder="Username">
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group">
+                                <mat-form-field class="inputField">
+                                    <input matInput type="password" id="password" name="password" formControlName="password" class="form-control inputField" placeholder="Password">
+                                </mat-form-field>
+                            </div>
+                            <div style="margin-bottom: 12px; margin-top: -15px">
+                                <alert></alert>
+                            </div>
+                            <div>
+                                <button mat-raised-button color="primary" id="submit_btn" style="width: 130px;float: right;text-align:left; margin-right: 10px;" (click)="onClickSubmit()">Login<span style="position: relative;left: 30px;top: -2px;"> →</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

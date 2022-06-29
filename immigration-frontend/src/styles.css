@@ -1,0 +1,356 @@
+body {
+    background-color: #f1f5ff;
+    font-family: 'Muli';
+}
+
+.container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.univ-col {
+    padding: 30px;
+    background-color: #02195e;
+}
+
+h1.page_ttl {
+    font-size: 22px;
+    color: #fff;
+    font-weight: 700;
+    margin-top: 50px;
+}
+
+p.wt_txt {
+    font-size: 14px;
+    color: #fff;
+}
+
+.btn_univ {
+    background-color: #567df4;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    padding: 10px 32px;
+    border-radius: 3px;
+    font-weight: 700;
+    margin-left: 58px !important;
+}
+
+.pad_btm {
+    padding-bottom: 80px;
+}
+
+.pad_univ {
+    padding: 30px 20px 60px 20px;
+    background-color: #fff;
+    border-radius: 15px;
+    margin-top: -60px;
+    box-shadow: 0px 0px 17px 1px #0001;
+}
+
+h2.innr_ttl {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+input {
+    background: url("http://kodyrabatowe.wp.pl/img/ico/search_gr.png") top left no-repeat;
+    height: 30px;
+    padding-left: 25px;
+}
+
+input.srch {
+    border: 1px solid #c7ccda;
+    border-radius: 4px;
+    background-color: #eef0f6;
+    padding: 17px 20px;
+    width: 340px;
+}
+
+.mnui {
+    padding: 25px 10px;
+    font-weight: 700;
+    font-size: 16px;
+    text-align: center;
+}
+
+.act {
+    background-color: #eef0f6;
+}
+
+.mnu {
+    background-color: #fff;
+}
+
+.cntr_align {
+    display: block;
+    margin: auto;
+}
+
+span.icnl i {
+    font-size: 40px;
+    text-align: center;
+    display: block;
+    margin: auto;
+    background-color: #fff;
+    height: 60px;
+    width: 60px;
+    align-items: center;
+    border-radius: 50%;
+    color: #02195e;
+}
+
+span.connector {
+    z-index: 1;
+    margin-left: 80px;
+    position: absolute;
+    width: 76px;
+    border: 1px dashed #fff;
+    margin-top: 65px;
+}
+
+span.connector2 {
+    z-index: 1;
+    margin-left: 80px;
+    position: absolute;
+    width: 76px;
+    border: 1px dashed #fff;
+    margin-top: 65px;
+}
+
+img.logo_ideal {
+    display: block;
+    margin: auto;
+    align-items: center;
+    text-align: center;
+    padding-top: 17px;
+    margin-left: -20px;
+    width: 170px;
+}
+
+span.icnl {
+    padding: 21px 15px;
+    width: 120px;
+    background-color: #fff;
+    min-height: 120px !important;
+    border-radius: 50%;
+    top: 50px;
+    position: relative;
+}
+
+p.proc_t {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 70px;
+    margin-left: 13px;
+}
+
+p.proc_t2 {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 70px;
+    margin-left: -5px;
+}
+
+p.proc_t3 {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 70px;
+    margin-left: -10px;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.back_btn {
+    color: #3f51b5 !important;
+    padding-left: 20px !important;
+}
+
+.edit_btn {
+    color: #3f51b5 !important;
+    padding-right: 20px !important;
+    float: right;
+}
+
+.export_btn {
+    background-color: #567df4;
+    color: white;
+    float: right;
+    font-weight: normal !important;
+}
+
+button.creat_rrf_next {
+    background-color: #3f51b5 !important;
+    color: #fff !important;
+    border-radius: 5px;
+    padding: 0px 30px;
+    margin-bottom: 20px;
+    margin-top: 60px;
+    float: right;
+}
+
+.red-color {
+    color: #e8605e;
+}
+
+.download_btn {
+    text-decoration: underline;
+    color: #567df4 !important;
+    outline: none !important;
+    float: right !important;
+    margin-top: 10px !important;
+}
+
+.view_detail h3 {
+    color: #000000 !important;
+    font-weight: bold !important;
+    font-size: 18px !important;
+}
+
+.view_detail h5 {
+    display: inline-block !important;
+    width: 40% !important;
+    position: relative !important;
+    padding-right: 10px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    /* Ensures colon does not overlay the text */
+}
+
+.view_detail h5::after {
+    content: ":" !important;
+    position: absolute !important;
+    right: 10px !important;
+}
+
+.view_detail h4 {
+    text-decoration: underline;
+    /* color: #8693bc !important; */
+    color: #02195e !important;
+    font-weight: 500 !important;
+    font-size: 15px !important;
+}
+
+.mngrBtn button span {
+    color: white !important;
+}
+
+
+/* .view_detail h5 {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+} */
+
+.view_detail .colValue span {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color: #8693bc;
+    display: inline-flex;
+    width: 160px;
+    line-break: anywhere;
+    word-wrap: break-word !important;
+}
+
+.mt15 {
+    margin-top: 15px !important;
+}
+
+.mt20 {
+    margin-top: 20px !important;
+}
+
+
+/* html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
+
+.example-container .mat-sort-header-content {
+    color: black !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+
+tr.mat-header-row {
+    background-color: #cdd3e4 !important;
+}
+
+.file_scroll {
+    height: 250px !important;
+    /* overflow: scroll !important; */
+    overflow-y: auto !important;
+}
+
+
+/******************** Arjun Css******************/
+
+button:focus {
+    outline: 0px auto -webkit-focus-ring-color;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-prefix,
+.mat-form-field-appearance-outline .mat-form-field-suffix {
+    top: 0 !important;
+}
+
+
+/* input.mat-input-element {
+    margin-top: -7px;
+    margin-bottom: -10px;
+} */
+
+.mat-form-field-appearance-outline .mat-form-field-label {
+    top: 1.84375em !important;
+    margin-top: -0.25em !important;
+}
+
+.cdk-table .view_detail .commentSection span {
+    width: auto !important;
+}
+
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: #92a6e2 !important;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    background-color: #567df4 !important;
+}
+
+
+/* .jbsrc .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 1em 0 1em 0;
+}
+
+.jbsrc input {
+    height: 0px;
+}
+
+.jbsrc .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 1px 0px 3px 0px !important;
+    line-height: 34px;
+    position: relative;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-label {
+    top: 15px !important;
+    margin-top: -0.25em;
+} */

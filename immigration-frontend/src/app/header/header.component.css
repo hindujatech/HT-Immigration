@@ -1,0 +1,6 @@
+mat-icon-button-focus-overlay {
+    background-color: transparent!important;
+}
+button:focus {
+    outline: none !important;
+}

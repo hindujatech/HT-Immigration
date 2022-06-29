@@ -1,0 +1,40 @@
+<div class="container mt20">
+    <div class="row pad_univ">
+        <div class="col-lg-12">
+            <div style="padding: 15px;">
+                <div class="dropzone" fileDragDrop (filesChangeEmiter)="onFileChange($event)">
+                    <div class="text-wrapper">
+                        <div class="centered">
+                            <input type="file" name="file" id="file" multiple="multiple" (change)="onFileChange($event)" accept=".png,.jpg,.doc,.docx,.pdf">
+                            <label for="file"><img src="../../assets/upload_icon.png"> Select your file or Drop it here!</label>
+                            <p class="primary-color font12" style="padding-top: 20px;">(.xls,.xlsx,.png,.jpg,.doc,.docx,.pdf)</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <mat-list>
+                        <!-- <h3 mat-subheader>Files</h3> -->
+                        <mat-list-item *ngFor="let file of files">
+                            <mat-icon mat-list-icon>folder</mat-icon>
+                            <h4 mat-line>{{file.name}}</h4>{{file.progress}}
+                            <div class="progress">
+                                <div class="progress-bar bg-success" [ngStyle]="{'width':file.progress+'%'}"></div>
+                            </div>
+                            <button mat-icon-button color="warn" (click)="deleteFile(file)"><img src="../../../assets/Delete.png"> </button>
+                            <mat-divider></mat-divider>
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="offset-lg-10 col-lg-2">
+                    <button mat-button class="creat_rrf_next" (click)="onSubmit()" style="margin-top: 0px !important;">UPLOAD</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

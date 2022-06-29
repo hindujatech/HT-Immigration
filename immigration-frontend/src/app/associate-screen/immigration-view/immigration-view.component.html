@@ -1,0 +1,238 @@
+<app-header [imgView]="test" (toggleEvent)="getFilterData($event)"></app-header>
+
+
+<div class="univ-col pad_btm" style="height: 160px">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-7" style="margin-top: -40px;margin-left: -11px">
+                <h1 class="page_ttl">Global Immigration Request</h1>
+                <!-- <p class="wt_txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. </p> -->
+
+            </div>
+
+            <!-- <div class="col-sm-2">
+            </div>
+            <div class="col-sm-3">
+                <img src="../../assets/gim_logo.png" style="width: 120px;margin-left: 145px;">
+            </div> -->
+        </div>
+    </div>
+</div>
+<div class="container">
+    <mat-card class="row pad_univ">
+        <div class="row">
+            <div class="col-lg-6">
+                <button mat-raised-button class="export_btn" style="float: left !important;" routerLink="/homepage" (click)="imgCheck('true')"><i class="fa fa-arrow-left" aria-hidden="true"></i> &ensp;BACK</button>
+                <!-- <a class="back_btn" style="padding-left: 12px !important;" routerLink="/homepage"><i class="fa fa-arrow-left" aria-hidden="true"></i> &ensp;Back</a> -->
+            </div>
+            <div class="col-lg-6">
+                <button mat-raised-button class="export_btn" (click)="ExportTOExcel()"><img src="../../../assets/export_cta.png">&nbsp; EXPORT</button>
+                <button mat-raised-button class="export_btn" *ngIf="this.isVisa == true" style="margin-right: 20px !important;" routerLink="/request-edit/{{id}}"><mat-icon>create</mat-icon>&nbsp; EDIT</button>
+            </div>
+        </div>
+
+        <!-- Employee Request details -->
+        <div class="container">
+            <div class="row view_detail">
+                <div class="col-lg-12 mt20">
+                    <h3 style="font-weight: bold;">Employee Information</h3>
+                </div>
+                <div class="col-lg-4 colValue">
+                    <h4>Personal Details</h4>
+                    <h5>First Name </h5><span>{{element.firstname}}</span>
+                    <h5>Last Name </h5><span>{{element.lastname}}</span>
+                    <h5>Gender </h5><span>{{element.gender | titlecase}}</span>
+                    <h5>Date Of Birth </h5><span>{{element.date_of_birth | date}}</span>
+                    <h5>Email </h5><span>{{element.email}}</span>
+                    <h5>Phone No </h5><span>{{element.phone_no}}</span>
+                    <h5>Marital Status </h5><span>{{element.marital_status | titlecase }}</span>
+                    <h5>City </h5><span>{{element.city}}</span>
+                    <h5>Country </h5><span>{{element.country}}</span>
+                </div>
+                <mat-divider vertical></mat-divider>
+                <div class="col-lg-4 colValue">
+                    <h4>Project Details</h4>
+                    <h5>Designation </h5><span> {{element.desiganation}}</span>
+                    <h5>Band </h5><span> {{element.band}}</span>
+                    <h5>Business Unit </h5><span> {{element.business_unit}}</span>
+                    <h5>Base Location </h5><span> {{element.base_location}}</span>
+                    <h5>Project Name </h5><span> {{element.project_name}}</span>
+                    <h5>Reporting Manager </h5><span> {{element.report_manager_name}}</span>
+                </div>
+                <mat-divider vertical></mat-divider>
+                <div class="col-lg-4 colValue" style="max-width: 30%;">
+                    <h4>Passport Details</h4>
+                    <h5>Nationality </h5><span> {{element.nationality}}</span>
+                    <h5>Passport Number </h5><span> {{element.passport_number}}</span>
+                    <h5>Issue </h5><span> {{element.issue}}</span>
+                    <h5>Issue Date </h5><span> {{element.issue_date | date}}</span>
+                    <h5>Expiry Date </h5><span> {{element.expiry_date | date}}</span>
+                    <h5>Place Of Birth </h5><span> {{element.place_of_birth}}</span>
+                    <br/><br/>
+                    <h4>Visa Details</h4>
+                    <h5>From </h5><span>{{element.from}}</span>
+                    <h5>To </h5><span>{{element.to}}</span>
+                    <h5>Visa Type </h5><span>{{element.visa_type}}</span>
+                    <h5>Visa Category </h5><span>{{element.visa_category}}</span>
+                    <h5>Note </h5><span>{{element.report}}</span>
+                </div>
+
+            </div>
+            <mat-divider style="margin-top: 5px;"></mat-divider>
+            <div class="row">
+                <div class="col-lg-6">
+                    <!-- View/Download employee documents -->
+                    <div *ngIf="isVisa">
+                        <div class="row " *ngIf="emp_docs">
+                            <div class="col-lg-8">
+                                <h4 style="margin-top: 10px;font-weight: bold;">Employee Documents</h4>
+                            </div>
+                            <div class="col-lg-4">
+                                <button mat-flat-button class="download_btn" (click)="downloadAllEmpDocuments()"><img src="../../../assets/Paper Download.png"> Download All</button>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 10px;" *ngIf="emp_docs">
+                            <ng-container *ngFor="let doc of employeeDocs; let i=index">
+                                <div class="col-12 col-lg-12 col-md-12 col-sm-12 file-icon">
+                                    <ng-container *ngIf="doc.filetype == 'image/png'">
+                                        <img src="../../assets/png_icon.png" style="width: 50px;">
+                                    </ng-container>
+                                    <ng-container *ngIf="doc.filetype == 'image/jpg'">
+                                        <img src="../../assets/jpg_icon.png" style="width: 50px;">
+                                    </ng-container>
+                                    <ng-container *ngIf="doc.filetype == 'application/pdf'">
+                                        <img src="../../assets/pdf_icon.png" style="width: 50px;">
+                                    </ng-container>
+                                    <ng-container *ngIf="doc.filetype == 'application/msword' || doc.filetype == 'application/octet-stream' || doc.filetype == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'">
+                                        <img src="../../assets/doc_icon.png" style="width: 50px;">
+                                    </ng-container>
+                                    <h4><span matTooltip="{{doc.originalname}}"> {{doc.originalname }} </span>
+                                        <mat-icon style="float: right; padding-top: 4px;"><img src="../../assets/view_icon.png" (click)="viewDocument(doc.filepath, doc.originalname)"></mat-icon>
+                                        <mat-icon style="float: right;"><img src="../../assets/Paper Download.png" (click)="downloadDocument(doc.filepath, doc.originalname)" /></mat-icon>
+                                    </h4>
+                                    <h5>{{doc.date | date}}</h5>
+                                </div>
+                                <mat-divider vertical></mat-divider>
+                            </ng-container>
+                        </div>
+                        <!-- <mat-divider *ngIf="emp_docs" style="margin-top: 5px;"></mat-divider> -->
+                    </div>
+                </div>
+                <mat-divider vertical style="margin-top: 5px;"></mat-divider>
+                <div class="col-lg-5">
+                    <!-- Add GMR Documents -->
+                    <div *ngIf="isVisa && img_docs_bool">
+                        <div class="row ">
+                            <div class="col-lg-12">
+                                <h4 style="margin-top: 10px;font-weight: bold; ">GMR Documents</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div style="padding: 15px;">
+                                    <div class="dropzone" fileDragDrop (filesChangeEmiter)="onFileChange($event)">
+                                        <div class="text-wrapper">
+                                            <div class="centered">
+                                                <input type="file" name="file" id="file" multiple="multiple" (change)="onFileChange($event)" accept=".png,.jpg,.doc,.docx,.pdf">
+                                                <label for="file"><img src="../../../assets/upload_icon.png"> Select your file or Drop it here!</label>
+                                                <p class="primary-color font12" style="padding-top: 20px;">(.xls,.xlsx,.png,.jpg,.doc,.docx,.pdf)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <mat-list>
+                                            <!-- <h3 mat-subheader>Files</h3> -->
+                                            <mat-list-item *ngFor="let file of files">
+                                                <mat-icon mat-list-icon>folder</mat-icon>
+                                                <h4 mat-line>{{file.name}}</h4>{{file.progress}}
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-success" [ngStyle]="{'width':file.progress+'%'}"></div>
+                                                </div>
+                                                <button mat-icon-button color="warn" (click)="deleteFile(file)"><img src="../../../assets/Delete.png"> </button>
+                                                <!-- <mat-divider></mat-divider> -->
+                                            </mat-list-item>
+                                        </mat-list>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <ng-container *ngIf="gmrDocs.length != 0">
+                                <ng-container *ngFor="let doc of gmrDocs; let i=index">
+                                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 file-icon">
+                                        <ng-container *ngIf="doc.filetype == 'image/png'">
+                                            <img src="../../assets/png_icon.png" style="width: 50px;">
+                                        </ng-container>
+                                        <ng-container *ngIf="doc.filetype == 'image/jpg' || doc.filetype == 'image/jpeg'">
+                                            <img src="../../assets/jpg_icon.png" style="width: 50px;">
+                                        </ng-container>
+                                        <ng-container *ngIf="doc.filetype == 'application/pdf'">
+                                            <img src="../../assets/pdf_icon.png" style="width: 50px;">
+                                        </ng-container>
+                                        <ng-container *ngIf="doc.filetype == 'application/msword' || doc.filetype == 'application/octet-stream' || doc.filetype == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'">
+                                            <img src="../../assets/doc_icon.png" style="width: 50px;">
+                                        </ng-container>
+                                        <h4><span matTooltip="{{doc.originalname}}"> {{doc.originalname}} </span>
+                                            <mat-icon style="float: right; padding-top: 4px;"><img src="../../assets/view_icon.png" (click)="viewDocument(doc.filepath, doc.originalname)"></mat-icon>
+                                            <mat-icon style="float: right;"><img src="../../assets/Paper Download.png" (click)="downloadDocument(doc.filepath, doc.originalname)" /></mat-icon>
+                                        </h4>
+                                        <h5>{{doc.date | date}}</h5>
+                                    </div>
+                                    <!-- <mat-divider vertical></mat-divider> -->
+                                </ng-container>
+                            </ng-container>
+
+                        </div>
+                        <!-- <mat-divider style="margin-top: 5px;"></mat-divider> -->
+                    </div>
+                </div>
+            </div>
+            <mat-divider style="margin-top: 5px;"></mat-divider>
+
+            <!-- Case status -->
+            <div class="row " *ngIf="isVisa && img_docs_bool">
+                <div class="col-lg-12">
+                    <h4 style="margin-top: 10px;font-weight: bold;">Case Status</h4>
+                </div>
+            </div>
+            <form [formGroup]="caseDetail" *ngIf="isVisa && img_docs_bool">
+                <div class="row">
+                    <div class="col-md-3 mg-t--1 mg-md-t-0">
+                        <div class="filter_class jbsrc">
+                            <mat-form-field appearance="outline" style="width:100% !important;">
+                                <mat-label>Select</mat-label>
+                                <mat-select formControlName="case_status" placeholder="Select case detail">
+                                    <mat-option value="Awaiting Documents"> Awaiting Documents</mat-option>
+                                    <mat-option value="Work In Progress">Work In Progress</mat-option>
+                                    <mat-option value="Case Submitted / Decision Pending">Case Submitted / Decision Pending</mat-option>
+                                    <mat-option value="RFE - Request for Evidence">RFE - Request for Evidence</mat-option>
+                                    <mat-option value="Visa Approved">Visa Approved</mat-option>
+                                    <mat-option value="Visa Denied">Visa Denied</mat-option>
+
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <button mat-flat-button class="send_btn" (click)="onSubmit()"><img src="../../../assets/Send.png">SUBMIT</button>
+                    </div>
+                    <div class="offset-lg-5 col-lg-2">
+                    </div>
+                </div>
+
+            </form>
+            <!-- <mat-divider style="margin-top: 5px;"></mat-divider>
+            <div class="row " *ngIf="isVisa">
+                <div class="col-lg-12">
+                    <h4 style="margin-top: 10px;">Chat</h4>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <app-chat-inbox [chatMessage]="emp_data"></app-chat-inbox>
+                </div>
+            </div> -->
+        </div>
+    </mat-card>
+</div>

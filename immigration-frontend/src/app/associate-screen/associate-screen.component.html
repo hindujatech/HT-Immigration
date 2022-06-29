@@ -1,0 +1,308 @@
+<div>
+    <ngx-spinner></ngx-spinner>
+
+    <app-header (toggleEvent)="getFilterData($event)"></app-header>
+
+    <div class="univ-col pad_btm" style="height: 160px">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3" *ngIf="this.view_type != 'employee'">
+
+                </div>
+                <div class="col-sm-6" style="margin-top: -60px">
+                    <div class="row">
+                        <div class="col-sm-3 connector"> <span class="icnl"><img src="../assets/icon1.png"  style="width: 32px;"></span>
+                            <span class="connector" style="right: calc(100% - 44px);left: 0;"></span>
+                            <p class="proc_t">Create</p>
+                        </div>
+                        <div class="col-sm-3 connector"> <span class="icnl"><img src="../assets/icon2.png"  style="width: 32px;"></span>
+                            <span class="connector2" style="right: calc(100% - 44px);left: 0;"></span>
+                            <p class="proc_t2">Fill Information </p>
+                        </div>
+                        <div class="col-sm-3 connector"> <span class="icnl"><img src="../assets/icon3.png" style="width: 32px;"></span>
+                            <span class="connector" style="right: calc(100% - 44px);left: 0;"></span>
+                            <p class="proc_t3">Upload Document </p>
+                        </div>
+                        <div class="col-sm-3"> <span class="icnl"><img src="../assets/icon1.png" style="width: 32px;"></span>
+                            <p class="proc_t">Submit</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <!-- <img src="../../assets/gim_logo.png" style="width: 120px;"> -->
+                    <ng-container *ngIf="this.view_type == 'employee'">
+                        <form class="checklist">
+                            <!-- <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Other</label> -->
+                            <mat-form-field class="col-12 pd-0 checklist dropdown" appearance="outline" style="text-align: center">
+                                <mat-select class="not-empty-select mySelectClass" isableOptionCentering panelClass="myPanelClass" formControlName="other" placeholder="Select Country" id="businesstype" (selectionChange)="chekListPdf($event.value)">
+                                    <mat-option disabled>Select</mat-option>
+                                    <mat-option class="not-empty-select" *ngFor="let toPlace of countries" [value]="toPlace.name">{{toPlace.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <!-- </div> -->
+                        </form>
+
+                        <!-- <button type="button" class="btn_univ" routerLink="/request-create">CREATE REQUEST</button> -->
+                    </ng-container>
+                </div>
+
+                <!-- <div class="col-sm-6" style="margin-top: -60px">
+                    <div class="row">
+                        <div class="col-sm-3 connector"> <span class="icnl"><img src="../assets/icon1.png"  style="width: 32px;"></span>
+                            <span class="connector" style="right: calc(100% - 44px);left: 0;"></span>
+                            <p class="proc_t">Create</p>
+                        </div>
+                        <div class="col-sm-3 connector"> <span class="icnl"><img src="../assets/icon2.png"  style="width: 32px;"></span>
+                            <span class="connector2" style="right: calc(100% - 44px);left: 0;"></span>
+                            <p class="proc_t2">Fill Information </p>
+                        </div>
+                        <div class="col-sm-3 connector"> <span class="icnl"><img src="../assets/icon3.png" style="width: 32px;"></span>
+                            <span class="connector" style="right: calc(100% - 44px);left: 0;"></span>
+                            <p class="proc_t3">Upload Document </p>
+                        </div>
+                        <div class="col-sm-3"> <span class="icnl"><img src="../assets/icon1.png" style="width: 32px;"></span>
+                            <p class="proc_t">Submit</p>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="col-sm-3 cntr_align" style="margin-top: 1px;margin-right: -33px">
+                    <ng-container *ngIf="this.view_type == 'employee'">
+                        <button type="button" class="btn_univ" routerLink="/request-create">CREATE REQUEST</button>
+                    </ng-container>
+                    <ng-container *ngIf="this.view_type != 'employee'">
+                        <!-- <img src="../../assets/banner_element.png" style="width: 140px;"> -->
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row pad_univ">
+
+            <div class="col-sm-8">
+                <h2 class="innr_ttl">Request List</h2>
+            </div>
+            <div class="filter_class jbsrc">
+                <mat-form-field appearance="outline" style="width: 300px;margin-top: -5px; ">
+                    <mat-label style="top:15px;">Employee Search</mat-label>
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Employee Name And Id Search" autocomplete="off" style="height: 0 !important;">
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+                <!-- <button (click)="addEmployee()" >addEmployee</button> -->
+                <!-- <button mat-raised-button (click)="addEmployee()" color="primary">Add</button> -->
+            </div>
+
+            <div class="col-lg-12">
+                <div class="example-container mat-elevation-z8" #TABLE>
+                    <table mat-table #table [dataSource]="dataSource" multiTemplateDataRows matSort>
+
+                        <ng-container matColumnDef="IMG_code">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Request ID </th>
+                            <td mat-cell *matCellDef="let element"> {{element.IMG_code}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                            <td mat-cell *matCellDef="let element"> {{element.firstname}} {{element.lastname}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="visa_type">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Visa Type </th>
+                            <td mat-cell *matCellDef="let element"> {{element.visa_type}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="destination_country">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Destination Country </th>
+                            <td mat-cell *matCellDef="let element"> {{element.to}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="status">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Manager Status </th>
+                            <td mat-cell *matCellDef="let element">
+                                <ng-container *ngIf="element.status == 'Approved' || element.status == 'Rejected'">
+                                    <ng-container *ngIf="element.status == 'Approved'">
+                                        <span style="color: #26bc71 !important;">Manager {{element.status}}</span>
+                                    </ng-container>
+                                    <ng-container *ngIf="element.status == 'Rejected'">
+                                        <span style="color: #f02828 !important;">Manager {{element.status}}</span>
+                                    </ng-container>
+                                </ng-container>
+                                <ng-container *ngIf="element.status != 'Approved' && element.status != 'Rejected'">
+                                    <span style="color: #fcce43 !important;">{{element.status}}</span>
+                                </ng-container>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="img_status">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Immigration Status </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{element.img_status}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                            <ng-container *ngIf="this.view_type == 'img_team'">
+                                <td mat-cell *matCellDef="let element" (click)="navigateRequest(element)" style="color: #567df4 !important;cursor: pointer; text-decoration: underline;"> View </td>
+                            </ng-container>
+                            <ng-container *ngIf="this.view_type == 'manager' || this.view_type == 'employee'">
+                                <td mat-cell *matCellDef="let element" style="color: #567df4 !important;cursor: pointer; text-decoration: underline;"> View</td>
+                            </ng-container>
+                        </ng-container>
+
+                        <!-- Expanded Content Column  -->
+                        <ng-container matColumnDef="expandedDetail">
+                            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                                <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                                    <mat-card style="background-color:#eef0f6;">
+                                        <div class="row view_detail">
+                                            <div class="col-lg-4 colValue">
+                                                <h4>Project Details</h4>
+                                                <h5>Designation </h5><span> {{element.desiganation}}</span>
+                                                <h5>Band </h5><span> {{element.band}}</span>
+                                                <h5>Business Unit </h5><span> {{element.business_unit}}</span>
+                                                <h5>Base Location </h5><span> {{element.base_location}}</span>
+                                                <h5>Project Name </h5><span> {{element.project_name}}</span>
+                                                <h5>Reporting Manager </h5><span> {{element.report_manager_name}}</span>
+                                            </div>
+                                            <mat-divider vertical></mat-divider>
+                                            <div class="col-lg-4 colValue">
+                                                <h4>Visa Details</h4>
+                                                <h5>From </h5><span>{{element.from}}</span>
+                                                <h5>To </h5><span>{{element.to}}</span>
+                                                <h5>Visa Type </h5><span>{{element.visa_type}}</span>
+                                                <h5>Visa Category </h5><span>{{element.visa_category}}</span>
+                                                <h5>Note </h5><span>{{element.report}}</span>
+                                            </div>
+                                            <mat-divider vertical></mat-divider>
+                                            <div class="col-lg-4 colValue " style="max-width: 30%;">
+                                                <div *ngIf="this.view_type == 'manager'" class="commentSection">
+                                                    <ng-container *ngIf="element.status != 'Approved' && element.status != 'Rejected'">
+                                                        <h4>Comments</h4>
+                                                        <form class="example-form">
+                                                            <mat-form-field class="example-full-width">
+                                                                <mat-label>Comments</mat-label>
+                                                                <input matInput #message maxlength="250" placeholder="Enter your comment" (blur)="onBlurMethod(message)">
+                                                                <mat-hint align="end">{{message.value.length}} / 250</mat-hint>
+                                                            </mat-form-field>
+                                                        </form>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="element.status == 'Approved' || element.status == 'Rejected'">
+                                                        <h4>Comments</h4>
+                                                        {{element.comments}}
+                                                        <h4 class="mt20">Decision</h4>
+                                                        Manager {{element.status}}
+                                                    </ng-container>
+                                                    <ng-container *ngIf="element.status != 'Approved' && element.status != 'Rejected'">
+                                                        <h4 class="mt20">Decision</h4>
+                                                        <div class="mngrBtn">
+                                                            <button mat-flat-button style="float: left; background-color: #f23b3d; outline-color: #fce6e8; width: 30%; color: #fce6e8 !important;" (click)="onClick( rejected,element._id, element.employee_docs)">{{this.rejected}}</button>
+                                                            <button mat-flat-button style="float: right; background-color: #28bc73; color: white !important; width: 30%; outline-color: white;" (click)="onClick( approved, element._id, element.employee_docs)">{{this.approved}}</button>
+                                                        </div>
+                                                    </ng-container>
+                                                </div>
+                                                <ng-container *ngIf="this.view_type == 'employee'">
+                                                    <h4>Passport Details</h4>
+                                                    <h5>Nationality </h5><span> {{element.nationality}}</span>
+                                                    <h5>Passport Number </h5><span> {{element.passport_number}}</span>
+                                                    <h5>Issue </h5><span> {{element.issue}}</span>
+                                                    <h5>Issue Date </h5><span> {{element.issue_date | date}}</span>
+                                                    <h5>Expiry Date </h5><span> {{element.expiry_date | date}}</span>
+                                                    <h5>Place Of Birth </h5><span> {{element.place_of_birth}}</span>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                        <ng-container *ngIf="this.view_type == 'employee'">
+                                            <mat-divider style="margin-top: 5px;"></mat-divider>
+                                            <div class="row view_detail" style="margin-top: 10px;">
+                                                <div class="col-lg-6 file-icon file_scroll">
+                                                    <h4>Employee Documents</h4>
+                                                    <ng-container *ngFor="let doc of toArray(element.employee_docs)">
+                                                        <ng-container *ngIf="doc.filetype == 'image/png'">
+                                                            <img src="../../assets/png_icon.png" style="width: 50px;">
+                                                        </ng-container>
+                                                        <ng-container *ngIf="doc.filetype == 'image/jpg' || doc.filetype == 'image/jpeg'">
+                                                            <img src="../../assets/jpg_icon.png" style="width: 50px;">
+                                                        </ng-container>
+                                                        <ng-container *ngIf="doc.filetype == 'application/pdf'">
+                                                            <img src="../../assets/pdf_icon.png" style="width: 50px;">
+                                                        </ng-container>
+                                                        <ng-container *ngIf="doc.filetype == 'application/msword' || doc.filetype == 'application/octet-stream' || doc.filetype == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'">
+                                                            <img src="../../assets/doc_icon.png" style="width: 50px;">
+                                                        </ng-container>
+                                                        <h4><span matTooltip="{{doc.originalname}}"> {{((doc.originalname.length > 30 ) ? doc.originalname.substring(0,28) +'...' : doc.originalname) }} </span>
+                                                            <mat-icon style="float: right; padding-top: 4px;"><img src="../../assets/view_icon.png" (click)="viewDocument(doc.filepath, doc.originalname)"></mat-icon>
+                                                            <mat-icon style="float: right;"><img src="../../assets/Paper Download.png" (click)="downloadDocument(doc.filepath, doc.originalname)" /></mat-icon>
+                                                        </h4>
+                                                        <h6 style="font-size: 12px;">{{doc.date | date}}</h6>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="element.img_status == 'RFE - Request for Evidence' || element.img_status == 'Awaiting Documents' || element.status == 'Awaiting Documents'">
+                                                        <button mat-raised-button class="export_btn" style="margin-top: 15px !important; color: white !important;" (click)="openDialog(element, element.gmr_docs)">UPLOAD DOCUMENTS</button>
+                                                    </ng-container>
+                                                </div>
+                                                <!-- <div class="col-lg-1">
+                                                </div> -->
+                                                <mat-divider vertical></mat-divider>
+
+                                                <div *ngIf="element.gmr_docs.length != 0" class="col-lg-6 file-icon file_scroll" style="overflow-x: hidden !important; max-width: 46% !important;">
+                                                    <h4>GMR Documents<span>
+                                                        <button mat-flat-button style="background-color: #edeef2 !important; margin-top: 0px !important;" class="download_btn" (click)="downloadAllEmpDocuments(element.gmr_docs)"><img style="padding-right: 5px;padding-top: 6px;" src="../../../assets/Paper Download.png"> Download All</button>
+                                                    </span></h4>
+                                                    <ng-container *ngFor="let doc of toArray(element.gmr_docs)">
+                                                        <ng-container *ngIf="doc.filetype == 'image/png'">
+                                                            <img src="../../assets/png_icon.png" style="width: 50px;">
+                                                        </ng-container>
+                                                        <ng-container *ngIf="doc.filetype == 'image/jpg' || doc.filetype == 'image/jpeg'">
+                                                            <img src="../../assets/jpg_icon.png" style="width: 50px;">
+                                                        </ng-container>
+                                                        <ng-container *ngIf="doc.filetype == 'application/pdf'">
+                                                            <img src="../../assets/pdf_icon.png" style="width: 50px;">
+                                                        </ng-container>
+                                                        <ng-container *ngIf="doc.filetype == 'application/msword' || doc.filetype == 'application/octet-stream' || doc.filetype == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'">
+                                                            <img src="../../assets/doc_icon.png" style="width: 50px;">
+                                                        </ng-container>
+                                                        <h4><span matTooltip="{{doc.originalname}}"> {{((doc.originalname.length > 30 ) ? doc.originalname.substring(0,28) +'...' : doc.originalname) }} </span>
+                                                            <mat-icon style="float: right; padding-top: 4px;"><img src="../../assets/view_icon.png" (click)="viewDocument(doc.filepath, doc.originalname)"></mat-icon>
+                                                            <mat-icon style="float: right;"><img src="../../assets/Paper Download.png" (click)="downloadDocument(doc.filepath, doc.originalname)" /></mat-icon>
+                                                        </h4>
+                                                        <h6 style="font-size: 12px;">{{doc.date | date}}</h6>
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                        <!-- <div *ngIf="this.view_type == 'employee' && expandedElement && element._id == chat_emp_id">
+                                            <app-chat-inbox [chatMessage]="emp_data"></app-chat-inbox>
+                                        </div> -->
+                                    </mat-card>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row" style="height: 35px !important;" [class.example-expanded-row]="expandedElement === element" (click)="expandedElement = expandedElement === element ? null : element;expendedFun(element)">
+                        </tr>
+                        <ng-container *ngIf="!exportActive">
+                            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+                        </ng-container>
+                    </table>
+                    <table>
+                        <tr *ngIf="!renderedData.length">
+                            <td style="text-align: center;padding: 18px;" [attr.colspan]="displayedColumns.length">
+                                No Records Found!
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- <div *ngIf="renderedData.length == 0">No records found</div> -->
+                    <mat-paginator #paginator [hidden]="!renderedData.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                    <ng-container *ngIf="this.view_type != 'employee'">
+                        <button mat-raised-button class="export_btn" style="margin-top: 15px !important;" (click)="ExportTOExcel()"><img src="../../assets/export_cta.png">&nbsp; EXPORT</button>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

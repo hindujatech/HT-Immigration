@@ -1,0 +1,7 @@
+{
+    "secret": "HINDUJATECH_IDEAL_2.0_BY_GOWDHAM",
+    "refreshTokenSecret": "Hindujatech_ideal",
+    "token_life": 3600,
+    "refreshTokenLife": 86400,
+    "webservice_url": "https://immigration.hindujatech.com:3000/"
+}

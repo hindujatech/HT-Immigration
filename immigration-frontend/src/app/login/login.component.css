@@ -1,0 +1,48 @@
+.row {
+    justify-content: center;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+.login-left {
+    width: 670px;
+    margin-top: 18%;
+}
+
+.log-form-div {
+    margin-top: 5%;
+}
+
+body {
+    background-color: #e1feff80 !important;
+}
+
+.pd-30 {
+    padding: 60px 0px !important;
+    border-radius: 4px !important;
+    background-color: #0000 !important;
+}
+
+.slim-header {
+    display: none !important;
+}
+
+.slim-footer.mg-t-0 {
+    display: none !important;
+}
+
+.slim-header .container {
+    min-width: 95% !important;
+}
+
+.inputField {
+    padding: 0px !important;
+    margin: 0 10px !important;
+    width: 94%;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+    height: 0 !important;
+}

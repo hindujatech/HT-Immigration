@@ -1,0 +1,1352 @@
+<app-header (toggleEvent)="getFilterData($event)"></app-header>
+
+
+<div class="univ-col pad_btm" style="height: 160px">
+    <div class="container">
+        <div class="row">
+            <!-- <div class="col-sm-7">
+                <img src="../../assets/gim_logo.png" style="width: 120px;">
+            </div>
+            <div class="col-sm-2">
+            </div> -->
+
+            <div class="col-sm-3" style="margin-top: -40px;margin-left: -11px">
+                <h1 class="page_ttl">Global Mobility Request</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row pad_univ">
+        <button mat-raised-button class="export_btn" style="float: left !important;" routerLink="/homepage" (click)="imgCheck('true')"><i class="fa fa-arrow-left" aria-hidden="true"></i> &ensp;BACK</button>
+
+        <mat-vertical-stepper #stepper>
+            <mat-step [stepControl]="personalDetails">
+                <form [formGroup]="personalDetails">
+                    <ng-template matStepLabel>Personal Details</ng-template>
+                    <div class="row no-gutters">
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">First Name <span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="firstname" [(ngModel)]="user.first_name" placeholder="Enter First Name" matNativeControl autocomplete="off" readonly>
+                                    <mat-error *ngIf="personalDetails.controls.firstname.hasError('required')">
+                                        First Name is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Last Name<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="lastname" [(ngModel)]="user.last_name" placeholder="Enter Last Name" matNativeControl autocomplete="off" readonly>
+                                    <mat-error *ngIf="personalDetails.controls.lastname.hasError('required')">
+                                        Last Name is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold" style="padding-right:225px; padding-bottom: 15px;">Gender<span class="tx-danger">*</span></label>
+                                <mat-radio-group class="col-12 pd-0" formControlName="gender" [(ngModel)]="genderStatus" aria-label="Select an option" [disabled]="true">
+                                    <mat-radio-button value="male">Male</mat-radio-button>
+                                    <mat-radio-button value="female">Female</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Date of Birth<span class="tx-danger">*</span></label>
+                                <div style="top:1px">
+                                    <mat-form-field class="col-12 pd-0" appearance="outline">
+                                        <input formControlName="date_of_birth" [matDatepicker]="picker" [max]="maxDate" [(ngModel)]="birth_date" placeholder="Select Date of Birth" matInput [disabled]="true">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                        <mat-error *ngIf="personalDetails.controls.date_of_birth.hasError('required')">
+                                            Date of Birth is <strong>required</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Email<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="email" [(ngModel)]="user.work_email_address" placeholder="Enter Email" matInput autocomplete="off" readonly>
+                                    <mat-error *ngIf="personalDetails.controls.date_of_birth.hasError('required')">
+                                        Email is <strong>required</strong>
+                                    </mat-error>
+                                    <mat-error *ngIf="personalDetails.controls.email.hasError('pattern')">
+                                        Enter valid email address
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Phone Number<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="phone_no" [(ngModel)]="user.mobile_number" placeholder="Enter Phone Number" maxlength="10" matInput autocomplete="off">
+                                    <mat-error *ngIf="personalDetails.controls.phone_no.hasError('required')">
+                                        Phone Number is <strong>required</strong>
+                                    </mat-error>
+                                    <mat-error *ngIf="personalDetails.controls.phone_no.hasError('pattern')">
+                                        Enter Valid Phone Number start with<strong> 6-9 </strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Marital Status<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="marital_status" placeholder="Select Marital status" [(ngModel)]="maritalStatus" [disabled]="true">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option value="single">Single</mat-option>
+                                        <mat-option value="married">Married</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="personalDetails.controls.marital_status.hasError('required')">
+                                        Marital Status is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">City<span class="tx-danger">*</span> &nbsp; &nbsp; &nbsp;</label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="city" placeholder="Enter City" [(ngModel)]="cityStatus" matInput autocomplete="off" readonly>
+                                    <mat-error *ngIf="personalDetails.controls.city.hasError('required')">
+                                        City is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Country<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="country" placeholder="Enter Country" [(ngModel)]="countryStatus" matInput autocomplete="off" readonly>
+                                    <mat-error *ngIf="personalDetails.controls.country.hasError('required')">
+                                        Country is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="this.personalDetails.controls.marital_status.value == 'married'">
+                            <div class="col-md-4 mg-t--1 mg-md-t-0">
+                                <div class="form-group filter_class mg-md-l--1 border-0">
+                                    <label class="form-control-label tx-bold">Dependent</label>
+                                    <mat-form-field class="col-12 pd-0" appearance="outline">
+                                        <mat-select formControlName="dependency" placeholder="Select No of Dependent">
+                                            <mat-option disabled>Select</mat-option>
+                                            <mat-option value="Nil">Nil</mat-option>
+                                            <mat-option value="1">1</mat-option>
+                                            <mat-option value="2">2</mat-option>
+                                            <mat-option value="3">3</mat-option>
+                                            <mat-option value="4">4</mat-option>
+                                            <mat-option value="5">5</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                    </div>
+                    <div>
+                        <button mat-button matStepperNext class="creat_rrf_next">Next</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="projectDetails">
+                <form [formGroup]="projectDetails">
+                    <ng-template matStepLabel>Project Details</ng-template>
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <div class="form-group bd-t-0-force filter_class pd-b-0-force border-0">
+                                <label class="form-control-label tx-bold">Designation<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="desiganation" [(ngModel)]="user.designation_name" placeholder="Select Designation" matInput readonly>
+                                    <mat-error *ngIf="projectDetails.controls.desiganation.hasError('required')">
+                                        Designation is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 bd-t-0-force border-0">
+                                <label class="form-control-label tx-bold">Band<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="band" [(ngModel)]="user.band_name" placeholder="Select Band" [disabled]="true">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option *ngFor="let bandName of band" [value]="bandName.name">{{bandName.name}} </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="projectDetails.controls.band.hasError('required')">
+                                        Band is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group bd-t-0-force filter_class pd-b-0-force border-0">
+                                <label class="form-control-label tx-bold">Business Unit<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="business_unit" [(ngModel)]="unitstatus" placeholder="Select Unit" [disabled]="true">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option *ngFor="let unit of units" [value]="unit.name">{{unit.name}} </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="projectDetails.controls.business_unit.hasError('required')">
+                                        Unit is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Base Location<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="base_location" [(ngModel)]="cityStatus" placeholder="Enter base location" matInput autocomplete="off" readonly>
+                                    <mat-error *ngIf="projectDetails.controls.base_location.hasError('required')">
+                                        Base Location is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Project Name<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="project_name" placeholder="Select project name">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option *ngFor="let projectName of emp_project_name" [value]="projectName.name">{{projectName.name}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="projectDetails.controls.project_name.hasError('required')">
+                                        Project Name is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0" *ngIf="projectDetails.value.project_name == 'Others'">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Other</label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="other" placeholder="Select">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option value="Sales">Sales</mat-option>
+                                        <mat-option value="Customer visit">Customer Visit</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group filter_class mg-md-l--1 bd-t-0-force border-0">
+                                <label class="form-control-label tx-bold">Reporting Manager<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="report_manager_name" [(ngModel)]="project_manager_name" type="text" placeholder="Select Reporting Manager Name" matNativeControl autocomplete="off" readonly>
+                                    <mat-error *ngIf="projectDetails.controls.report_manager_name.hasError('required')">
+                                        Reporting Manager Name is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
+                        <button mat-button matStepperPrevious class="creat_rrf_prev">Previous</button>
+                        <button mat-button matStepperNext class="creat_rrf_next">Next</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="passportDetails">
+                <form [formGroup]="passportDetails">
+                    <ng-template matStepLabel>Passport Details</ng-template>
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <div class="form-group filter_class border-0">
+                                <label class="form-control-label tx-bold">Nationality<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="nationality" [(ngModel)]="selectedCriteria" placeholder="Select nationality" [disabled]="true">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option *ngFor="let nationality of nationalities" [value]="nationality.name">{{nationality.name}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="passportDetails.controls.nationality.hasError('required')">
+                                        Nationality is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Passport Number<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <ng-container *ngIf="passport_number != '' ">
+                                        <input formControlName="passport_number" placeholder="Enter Passport Number" [(ngModel)]="passport_number" maxlength="15" matInput autocomplete="off" readonly>
+                                    </ng-container>
+                                    <ng-container *ngIf="passport_number == '' ">
+                                        <input formControlName="passport_number" placeholder="Enter Passport Number" maxlength="15" matInput autocomplete="off">
+                                    </ng-container>
+                                    <mat-error *ngIf="passportDetails.controls.passport_number.hasError('required')">
+                                        Passport Number is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Place of issue<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <ng-container *ngIf="passport_place_issue != null ">
+                                        <input formControlName="issue" placeholder="Enter Place of issue" [(ngModel)]="passport_place_issue" matInput autocomplete="off" readonly>
+                                    </ng-container>
+                                    <ng-container *ngIf="passport_place_issue == null ">
+                                        <input formControlName="issue" placeholder="Enter Place of issue" matInput autocomplete="off">
+                                    </ng-container>
+                                    <mat-error *ngIf="passportDetails.controls.issue.hasError('required')">
+                                        Place of issue is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Issued Date<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <ng-container *ngIf="passport_date_issue != null ">
+                                        <input formControlName="issue_date" [matDatepicker]="picker1" [max]="maxDate" [(ngModel)]="passport_date_issue" placeholder="Select issue date" matInput [disabled]="true">
+                                    </ng-container>
+                                    <ng-container *ngIf="passport_date_issue == null ">
+                                        <input formControlName="issue_date" [matDatepicker]="picker1" [max]="maxDate" [(ngModel)]="passport_date_issue" placeholder="Select issue date" matInput>
+                                    </ng-container>
+                                    <mat-datepicker-toggle matSuffix [for]="picker1" (click)="dateFun()"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                    <mat-error *ngIf="passportDetails.controls.issue_date.hasError('required')">
+                                        Issued Date is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Expiry Date<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <ng-container *ngIf="passport_number != '' "></ng-container>
+                                    <ng-container *ngIf="passport_number != '' "></ng-container>
+                                    <input formControlName="expiry_date" placeholder="Select expiry date" matInput readonly>
+                                    <mat-error *ngIf="passportDetails.controls.expiry_date.hasError('required')">
+                                        Expiry Date is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Place of Birth<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <ng-container *ngIf="passport_number != '' "></ng-container>
+                                    <ng-container *ngIf="passport_number != '' "></ng-container>
+                                    <input formControlName="place_of_birth" placeholder="Enter place of birth" matInput autocomplete="off">
+                                    <mat-error *ngIf="passportDetails.controls.place_of_birth.hasError('required')">
+                                        Place of Birth is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button mat-button matStepperPrevious class="creat_rrf_prev">Previous</button>
+                        <button mat-button matStepperNext class="creat_rrf_next">Next</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="visaDetails">
+                <form [formGroup]="visaDetails">
+                    <ng-template matStepperIcon="edit">
+                        <mat-icon>done</mat-icon>
+                    </ng-template>
+                    <ng-template matStepLabel>Visa Details</ng-template>
+                    <div class="row no-gutters">
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">From<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="from" placeholder="Select from">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option *ngFor="let fromPlace of countries" [value]="fromPlace.name">{{fromPlace.name}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="visaDetails.controls.from.hasError('required')">
+                                        From is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">To<span class="tx-danger">*</span>&nbsp; &nbsp; &nbsp;</label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="to" placeholder="Select to">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option *ngFor="let toPlace of countries" [value]="toPlace.name">{{toPlace.name}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="visaDetails.controls.to.hasError('required')">
+                                        To is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Visa<span class="tx-danger">*</span>&nbsp; &nbsp; &nbsp;</label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="visa_type" placeholder="Select visa type">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option value="Fresh">Fresh</mat-option>
+                                        <mat-option value="Extension">Extension</mat-option>
+                                        <mat-option value="Transfer">Transfer</mat-option>
+                                        <mat-option value="Amendment">Amendment</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="visaDetails.controls.visa_type.hasError('required')">
+                                        Visa Type is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Visa Category<span class="tx-danger">*</span>&nbsp; &nbsp; &nbsp;</label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="visa_category" placeholder="Select visa_category">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option value="Business visa">BUSINESS VISA</mat-option>
+                                        <mat-option value="H-1B CAP">H-1B CAP</mat-option>
+                                        <mat-option value="H-1B NON CAP">H-1B NON CAP</mat-option>
+                                        <mat-option value="L-1A">L-1A</mat-option>
+                                        <mat-option value="L-1B">L-1B</mat-option>
+                                        <mat-option value="GC">GC</mat-option>
+                                        <mat-option value="TN-1">TN-1 (Canada)</mat-option>
+                                        <mat-option value="TN-2)">TN-2 (Mexico)</mat-option>
+                                        <mat-option value="WP - Short Term)">WP - Short Term</mat-option>
+                                        <mat-option value="WP - Long Term">WP - Long Term</mat-option>
+
+                                    </mat-select>
+                                    <mat-error *ngIf="visaDetails.controls.visa_category.hasError('required')">
+                                        Visa Category is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;</label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="report" placeholder="Enter Visa Classification" matInput autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button mat-button matStepperPrevious class="creat_rrf_prev">PREVIOUS</button>
+                        <button mat-button matStepperNext class="creat_rrf_next" (click)="onSubmit()">{{saveBtn}}</button>
+                    </div>
+                </form>
+            </mat-step>
+        </mat-vertical-stepper>
+    </div>
+</div>
+
+<!-- <div class="container" *ngIf="snapshot == 'request-create'"> -->
+<!-- <div class="container">
+    <div class="row pad_univ">
+        <button mat-raised-button class="export_btn" style="float: left !important;" routerLink="/homepage" (click)="imgCheck('true')"><i class="fa fa-arrow-left" aria-hidden="true"></i> &ensp;BACK</button>
+
+        <mat-vertical-stepper #stepper>
+            <mat-step [stepControl]="personalDetails">
+                <form [formGroup]="personalDetails">
+                    <ng-template matStepLabel>Personal Details</ng-template>
+                    <div class="row no-gutters">
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">First Name <span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="firstname" [(ngModel)]="user.first_name" readonly placeholder="Enter First Name" matNativeControl autocomplete="off">
+                                    <mat-error *ngIf="personalDetails.controls.firstname.hasError('required')">
+                                        First Name is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Last Name<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="lastname" [(ngModel)]="user.last_name" readonly placeholder="Enter Last Name" matNativeControl autocomplete="off">
+                                    <mat-error *ngIf="personalDetails.controls.lastname.hasError('required')">
+                                        Last Name is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold" style="padding-right:225px; padding-bottom: 15px;">Gender<span class="tx-danger">*</span></label>
+                                <mat-radio-group class="col-12 pd-0" formControlName="gender" [disabled]="true" [(ngModel)]="genderStatus" aria-label="Select an option">
+                                    <mat-radio-button value="male">Male</mat-radio-button>
+                                    <mat-radio-button value="female">Female</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Date of Birth<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="date_of_birth" [matDatepicker]="picker" [(ngModel)]="birth_date" [disabled]="true" placeholder="Select Date of Birth" matInput>
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                    <mat-error *ngIf="personalDetails.controls.date_of_birth.hasError('required')">
+                                        Date of Birth is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Email<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="email" [(ngModel)]="user.work_email_address" readonly placeholder="Enter Email" matInput autocomplete="off">
+                                    <mat-error *ngIf="personalDetails.controls.date_of_birth.hasError('required')">
+                                        Email is <strong>required</strong>
+                                    </mat-error>
+                                    <mat-error *ngIf="personalDetails.controls.email.hasError('pattern')">
+                                        Enter valid email address
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Phone Number<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="phone_no" [(ngModel)]="user.mobile_number" readonly placeholder="Enter Phone Number" maxlength="15" matInput autocomplete="off">
+                                    <mat-error *ngIf="personalDetails.controls.phone_no.hasError('required')">
+                                        Phone Number is <strong>required</strong>
+                                    </mat-error>
+                                    <mat-error *ngIf="personalDetails.controls.phone_no.hasError('pattern')">
+                                        Enter Valid Phone Number start with<strong> 6-9 </strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Marital Status<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="marital_status" [disabled]="true" placeholder="Select Marital status" [(ngModel)]="maritalStatus">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option value="single">Single</mat-option>
+                                        <mat-option value="married">Married</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="personalDetails.controls.marital_status.hasError('required')">
+                                        Marital Status is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">City<span class="tx-danger">*</span> &nbsp; &nbsp; &nbsp;</label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="city" placeholder="Enter City" readonly [(ngModel)]="cityStatus" matInput autocomplete="off">
+                                    <mat-error *ngIf="personalDetails.controls.city.hasError('required')">
+                                        City is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Country<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="country" placeholder="Enter Country" readonly [(ngModel)]="countryStatus" matInput autocomplete="off">
+                                    <mat-error *ngIf="personalDetails.controls.country.hasError('required')">
+                                        Country is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="this.personalDetails.controls.marital_status.value == 'married'">
+                            <div class="col-md-4 mg-t--1 mg-md-t-0">
+                                <div class="form-group filter_class mg-md-l--1 border-0">
+                                    <label class="form-control-label tx-bold">Dependent</label>
+                                    <mat-form-field class="col-12 pd-0" appearance="outline">
+                                        <mat-select formControlName="dependency" placeholder="Select No of Dependent">
+                                            <mat-option disabled>Select</mat-option>
+                                            <mat-option value="0">0</mat-option>
+                                            <mat-option value="1">1</mat-option>
+                                            <mat-option value="2">2</mat-option>
+                                            <mat-option value="3">3</mat-option>
+                                            <mat-option value="4">4</mat-option>
+                                            <mat-option value="5">5</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                    </div>
+                    <div>
+                        <button mat-button matStepperNext class="creat_rrf_next">Next</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="projectDetails">
+                <form [formGroup]="projectDetails">
+                    <ng-template matStepLabel>Project Details</ng-template>
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <div class="form-group bd-t-0-force filter_class pd-b-0-force border-0">
+                                <label class="form-control-label tx-bold">Designation<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="desiganation" [(ngModel)]="user.designation_name" readonly placeholder="Select Designation" matInput>
+                                    <mat-error *ngIf="projectDetails.controls.desiganation.hasError('required')">
+                                        Designation is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 bd-t-0-force border-0">
+                                <label class="form-control-label tx-bold">Band<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="band" [(ngModel)]="user.band_name" [disabled]="true" placeholder="Select Band">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option *ngFor="let bandName of band" [value]="bandName.name">{{bandName.name}} </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="projectDetails.controls.band.hasError('required')">
+                                        Band is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group bd-t-0-force filter_class pd-b-0-force border-0">
+                                <label class="form-control-label tx-bold">Business Unit<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="business_unit" [(ngModel)]="unitstatus" [disabled]="true" placeholder="Select Unit">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option *ngFor="let unit of units" [value]="unit.name">{{unit.name}} </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="projectDetails.controls.business_unit.hasError('required')">
+                                        Unit is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Base Location<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="base_location" [(ngModel)]="cityStatus" readonly placeholder="Enter base location" matInput autocomplete="off">
+                                    <mat-error *ngIf="projectDetails.controls.base_location.hasError('required')">
+                                        Base Location is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Project Name<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="project_name" placeholder="Select project name">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option *ngFor="let projectName of emp_project_name" [value]="projectName.name">{{projectName.name}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="projectDetails.controls.project_name.hasError('required')">
+                                        Project Name is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group filter_class mg-md-l--1 bd-t-0-force border-0">
+                                <label class="form-control-label tx-bold">Reporting Manager<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="report_manager_name" readonly [(ngModel)]="project_manager_name" type="text" placeholder="Select Reporting Manager Name" matNativeControl autocomplete="off">
+                                    <mat-error *ngIf="projectDetails.controls.report_manager_name.hasError('required')">
+                                        Reporting Manager Name is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
+                        <button mat-button matStepperPrevious class="creat_rrf_prev">Previous</button>
+                        <button mat-button matStepperNext class="creat_rrf_next">Next</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="passportDetails">
+                <form [formGroup]="passportDetails">
+                    <ng-template matStepLabel>Passport Details</ng-template>
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <div class="form-group filter_class border-0">
+                                <label class="form-control-label tx-bold">Nationality<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="nationality" [(ngModel)]="selectedCriteria" [disabled]="true" placeholder="Select nationality">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option *ngFor="let nationality of nationalities" [value]="nationality.name">{{nationality.name}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="passportDetails.controls.nationality.hasError('required')">
+                                        Nationality is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Passport Number<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="passport_number" [(ngModel)]="passport_number" readonly placeholder="Enter Passport Number" maxlength="15" matInput autocomplete="off">
+                                    <mat-error *ngIf="passportDetails.controls.passport_number.hasError('required')">
+                                        Passport Number is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Place of issue<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="issue" placeholder="Enter Place of issue" readonly [(ngModel)]="passport_place_issue" matInput autocomplete="off">
+                                    <mat-error *ngIf="passportDetails.controls.issue.hasError('required')">
+                                        Place of issue is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Issued Date<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="issue_date" [matDatepicker]="picker1" [disabled]="true" [(ngModel)]="passport_date_issue" placeholder="Select issue date" matInput>
+                                    <mat-datepicker-toggle matSuffix [for]="picker1" (click)="dateFun()"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                    <mat-error *ngIf="passportDetails.controls.issue_date.hasError('required')">
+                                        Issued Date is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Expiry Date<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="expiry_date" readonly placeholder="Select expiry date" matInput>
+                                    <mat-error *ngIf="passportDetails.controls.expiry_date.hasError('required')">
+                                        Expiry Date is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Place of Birth<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="place_of_birth" placeholder="Enter place of birth" matInput autocomplete="off">
+                                    <mat-error *ngIf="passportDetails.controls.place_of_birth.hasError('required')">
+                                        Place of Birth is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button mat-button matStepperPrevious class="creat_rrf_prev">Previous</button>
+                        <button mat-button matStepperNext class="creat_rrf_next">Next</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="visaDetails">
+                <form [formGroup]="visaDetails">
+                    <ng-template matStepperIcon="edit">
+                        <mat-icon>done</mat-icon>
+                    </ng-template>
+                    <ng-template matStepLabel>Visa Details</ng-template>
+                    <div class="row no-gutters">
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">From<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="from" placeholder="Select from">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option *ngFor="let fromPlace of countries" [value]="fromPlace.name">{{fromPlace.name}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="visaDetails.controls.from.hasError('required')">
+                                        From is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">To<span class="tx-danger">*</span>&nbsp; &nbsp; &nbsp;</label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="to" placeholder="Select to">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option *ngFor="let toPlace of countries" [value]="toPlace.name">{{toPlace.name}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="visaDetails.controls.to.hasError('required')">
+                                        To is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Visa<span class="tx-danger">*</span>&nbsp; &nbsp; &nbsp;</label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="visa_type" placeholder="Select visa type">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option value="Fresh">Fresh</mat-option>
+                                        <mat-option value="Extension">Extension</mat-option>
+                                        <mat-option value="Transfer">Transfer</mat-option>
+                                        <mat-option value="Amendment">Amendment</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="visaDetails.controls.visa_type.hasError('required')">
+                                        Visa Type is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Visa Category<span class="tx-danger">*</span>&nbsp; &nbsp; &nbsp;</label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="visa_category" placeholder="Select visa_category">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option value="Business visa">BUSINESS VISA</mat-option>
+                                        <mat-option value="H-1B CAP">H-1B CAP</mat-option>
+                                        <mat-option value="H-1B NON CAP">H-1B NON CAP</mat-option>
+                                        <mat-option value="L-1A">L-1A</mat-option>
+                                        <mat-option value="L-1B">L-1B</mat-option>
+                                        <mat-option value="GC">GC</mat-option>
+                                        <mat-option value="TN-1">TN-1 (Canada)</mat-option>
+                                        <mat-option value="TN-2)">TN-2 (Mexico)</mat-option>
+                                        <mat-option value="WP - Short Term)">WP - Short Term</mat-option>
+                                        <mat-option value="WP - Long Term">WP - Long Term</mat-option>
+
+                                    </mat-select>
+                                    <mat-error *ngIf="visaDetails.controls.visa_category.hasError('required')">
+                                        Visa Category is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;</label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="report" placeholder="Enter Visa Classification" matInput autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button mat-button matStepperPrevious class="creat_rrf_prev">PREVIOUS</button>
+                        <button mat-button matStepperNext class="creat_rrf_next" (click)="onSubmit()">{{saveBtn}}</button>
+                    </div>
+                </form>
+            </mat-step>
+        </mat-vertical-stepper>
+    </div>
+</div> -->
+
+<!-- <div class="container" *ngIf="this.snapshot == 'request-edit'">
+    <div class="row pad_univ">
+        <button mat-raised-button class="export_btn" style="float: left !important;" routerLink="/homepage" (click)="imgCheck('true')"><i class="fa fa-arrow-left" aria-hidden="true"></i> &ensp;BACK</button>
+
+        <mat-vertical-stepper #stepper>
+            <mat-step [stepControl]="personalDetails">
+                <form [formGroup]="personalDetails">
+                    <ng-template matStepLabel>Personal Details</ng-template>
+                    <div class="row no-gutters">
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">First Name <span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="firstname" placeholder="Enter First Name" matNativeControl autocomplete="off">
+                                    <mat-error *ngIf="personalDetails.controls.firstname.hasError('required')">
+                                        First Name is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Last Name<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="lastname" placeholder="Enter Last Name" matNativeControl autocomplete="off">
+                                    <mat-error *ngIf="personalDetails.controls.lastname.hasError('required')">
+                                        Last Name is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold" style="padding-right:225px; padding-bottom: 15px;">Gender<span class="tx-danger">*</span></label>
+                                <mat-radio-group class="col-12 pd-0" formControlName="gender" aria-label="Select an option">
+                                    <mat-radio-button value="male">Male</mat-radio-button>
+                                    <mat-radio-button value="female">Female</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Date of Birth<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="date_of_birth" [matDatepicker]="picker" readonly placeholder="Select Date of Birth" matInput>
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                    <mat-error *ngIf="personalDetails.controls.date_of_birth.hasError('required')">
+                                        Date of Birth is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Email<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="email" placeholder="Enter Email" matInput autocomplete="off">
+                                    <mat-error *ngIf="personalDetails.controls.date_of_birth.hasError('required')">
+                                        Email is <strong>required</strong>
+                                    </mat-error>
+                                    <mat-error *ngIf="personalDetails.controls.email.hasError('pattern')">
+                                        Enter valid email address
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Phone Number<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="phone_no" placeholder="Enter Phone Number" maxlength="10" matInput autocomplete="off">
+                                    <mat-error *ngIf="personalDetails.controls.phone_no.hasError('required')">
+                                        Phone Number is <strong>required</strong>
+                                    </mat-error>
+                                    <mat-error *ngIf="personalDetails.controls.phone_no.hasError('pattern')">
+                                        Enter Valid Phone Number start with<strong> 6-9 </strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Marital Status<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="marital_status" placeholder="Select Marital status">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option value="single">Single</mat-option>
+                                        <mat-option value="married">Married</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="personalDetails.controls.marital_status.hasError('required')">
+                                        Marital Status is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">City<span class="tx-danger">*</span> &nbsp; &nbsp; &nbsp;</label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="city" placeholder="Enter City" matInput autocomplete="off">
+                                    <mat-error *ngIf="personalDetails.controls.city.hasError('required')">
+                                        City is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Country<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="country" placeholder="Enter Country" matInput autocomplete="off">
+                                    <mat-error *ngIf="personalDetails.controls.country.hasError('required')">
+                                        Country is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="this.personalDetails.controls.marital_status.value == 'married'">
+                            <div class="col-md-4 mg-t--1 mg-md-t-0">
+                                <div class="form-group filter_class mg-md-l--1 border-0">
+                                    <label class="form-control-label tx-bold">Dependent</label>
+                                    <mat-form-field class="col-12 pd-0" appearance="outline">
+                                        <mat-select formControlName="dependency" placeholder="Select No of Dependent">
+                                            <mat-option disabled>Select</mat-option>
+                                            <mat-option value="0">0</mat-option>
+                                            <mat-option value="1">1</mat-option>
+                                            <mat-option value="2">2</mat-option>
+                                            <mat-option value="3">3</mat-option>
+                                            <mat-option value="4">4</mat-option>
+                                            <mat-option value="5">5</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                    </div>
+                    <div>
+                        <button mat-button matStepperNext class="creat_rrf_next">Next</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="projectDetails">
+                <form [formGroup]="projectDetails">
+                    <ng-template matStepLabel>Project Details</ng-template>
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <div class="form-group bd-t-0-force filter_class pd-b-0-force border-0">
+                                <label class="form-control-label tx-bold">Designation<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="desiganation" placeholder="Select Designation" matInput>
+                                    <mat-error *ngIf="projectDetails.controls.desiganation.hasError('required')">
+                                        Designation is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 bd-t-0-force border-0">
+                                <label class="form-control-label tx-bold">Band<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="band" placeholder="Select Band">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option *ngFor="let bandName of band" [value]="bandName.name">{{bandName.name}} </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="projectDetails.controls.band.hasError('required')">
+                                        Band is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group bd-t-0-force filter_class pd-b-0-force border-0">
+                                <label class="form-control-label tx-bold">Business Unit<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="business_unit" placeholder="Select Unit">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option *ngFor="let unit of units" [value]="unit.name">{{unit.name}} </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="projectDetails.controls.business_unit.hasError('required')">
+                                        Unit is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Base Location<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="base_location" placeholder="Enter base location" matInput autocomplete="off">
+                                    <mat-error *ngIf="projectDetails.controls.base_location.hasError('required')">
+                                        Base Location is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Project Name<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="project_name" placeholder="Select project name">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option *ngFor="let projectName of emp_project_name" [value]="projectName.name">{{projectName.name}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="projectDetails.controls.project_name.hasError('required')">
+                                        Project Name is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group filter_class mg-md-l--1 bd-t-0-force border-0">
+                                <label class="form-control-label tx-bold">Reporting Manager<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="report_manager_name" readonly [(ngModel)]="project_manager_name" type="text" placeholder="Select Reporting Manager Name" matNativeControl autocomplete="off">
+                                    <mat-error *ngIf="projectDetails.controls.report_manager_name.hasError('required')">
+                                        Reporting Manager Name is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
+                        <button mat-button matStepperPrevious class="creat_rrf_prev">Previous</button>
+                        <button mat-button matStepperNext class="creat_rrf_next">Next</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="passportDetails">
+                <form [formGroup]="passportDetails">
+                    <ng-template matStepLabel>Passport Details</ng-template>
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <div class="form-group filter_class border-0">
+                                <label class="form-control-label tx-bold">Nationality<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="nationality" placeholder="Select nationality">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option *ngFor="let nationality of nationalities" [value]="nationality.name">{{nationality.name}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="passportDetails.controls.nationality.hasError('required')">
+                                        Nationality is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Passport Number<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="passport_number" placeholder="Enter Passport Number" maxlength="15" matInput autocomplete="off">
+                                    <mat-error *ngIf="passportDetails.controls.passport_number.hasError('required')">
+                                        Passport Number is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Place of issue<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="issue" placeholder="Enter Place of issue" matInput autocomplete="off">
+                                    <mat-error *ngIf="passportDetails.controls.issue.hasError('required')">
+                                        Place of issue is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Issued Date<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="issue_date" [matDatepicker]="picker1" placeholder="Select issue date" matInput>
+                                    <mat-datepicker-toggle matSuffix [for]="picker1" (click)="dateFun()"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                    <mat-error *ngIf="passportDetails.controls.issue_date.hasError('required')">
+                                        Issued Date is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Expiry Date<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="expiry_date" readonly placeholder="Select expiry date" matInput>
+                                    <mat-error *ngIf="passportDetails.controls.expiry_date.hasError('required')">
+                                        Expiry Date is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Place of Birth<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="place_of_birth" placeholder="Enter place of birth" matInput autocomplete="off">
+                                    <mat-error *ngIf="passportDetails.controls.place_of_birth.hasError('required')">
+                                        Place of Birth is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button mat-button matStepperPrevious class="creat_rrf_prev">Previous</button>
+                        <button mat-button matStepperNext class="creat_rrf_next">Next</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="visaDetails">
+                <form [formGroup]="visaDetails">
+                    <ng-template matStepperIcon="edit">
+                        <mat-icon>done</mat-icon>
+                    </ng-template>
+                    <ng-template matStepLabel>Visa Details</ng-template>
+                    <div class="row no-gutters">
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">From<span class="tx-danger">*</span></label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="from" placeholder="Select from">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option *ngFor="let fromPlace of countries" [value]="fromPlace.name">{{fromPlace.name}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="visaDetails.controls.from.hasError('required')">
+                                        From is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">To<span class="tx-danger">*</span>&nbsp; &nbsp; &nbsp;</label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="to" placeholder="Select to">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option *ngFor="let toPlace of countries" [value]="toPlace.name">{{toPlace.name}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="visaDetails.controls.to.hasError('required')">
+                                        To is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Visa<span class="tx-danger">*</span>&nbsp; &nbsp; &nbsp;</label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="visa_type" placeholder="Select visa type">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option value="Fresh">Fresh</mat-option>
+                                        <mat-option value="Extension">Extension</mat-option>
+                                        <mat-option value="Transfer">Transfer</mat-option>
+                                        <mat-option value="Amendment">Amendment</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="visaDetails.controls.visa_type.hasError('required')">
+                                        Visa Type is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">Visa Category<span class="tx-danger">*</span>&nbsp; &nbsp; &nbsp;</label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <mat-select formControlName="visa_category" placeholder="Select visa_category">
+                                        <mat-option disabled>Select</mat-option>
+                                        <mat-option value="Business visa">BUSINESS VISA</mat-option>
+                                        <mat-option value="H-1B CAP">H-1B CAP</mat-option>
+                                        <mat-option value="H-1B NON CAP">H-1B NON CAP</mat-option>
+                                        <mat-option value="L-1A">L-1A</mat-option>
+                                        <mat-option value="L-1B">L-1B</mat-option>
+                                        <mat-option value="GC">GC</mat-option>
+                                        <mat-option value="TN-1">TN-1 (Canada)</mat-option>
+                                        <mat-option value="TN-2)">TN-2 (Mexico)</mat-option>
+                                        <mat-option value="WP - Short Term)">WP - Short Term</mat-option>
+                                        <mat-option value="WP - Long Term">WP - Long Term</mat-option>
+
+                                    </mat-select>
+                                    <mat-error *ngIf="visaDetails.controls.visa_category.hasError('required')">
+                                        Visa Category is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mg-t--1 mg-md-t-0">
+                            <div class="form-group filter_class mg-md-l--1 border-0">
+                                <label class="form-control-label tx-bold">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;</label>
+                                <mat-form-field class="col-12 pd-0" appearance="outline">
+                                    <input formControlName="report" placeholder="Enter Visa Classification" matInput autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button mat-button matStepperPrevious class="creat_rrf_prev">PREVIOUS</button>
+                        <button mat-button matStepperNext class="creat_rrf_next" (click)="onSubmit()">{{saveBtn}}</button>
+                    </div>
+                </form>
+            </mat-step>
+        </mat-vertical-stepper>
+    </div>
+</div> -->
