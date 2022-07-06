@@ -65,7 +65,7 @@ employeeCrtl.addEmployee = async function(req, res) {
             })
         }
         // send_mail(employee_details["work_email_address"], 'candidate', employee_detail["employee_name"], employee_details["employee_name"]);
-        return res.status(201).json({ status: 201, data: emp_detail, message: "employee details added Succesfully" })
+        return res.status(201).json({ status: 201, data: emp_detail, message: "Employee details added Succesfully" })
 
     } catch (e) {
         return res.status(400).json({ status: 400, message: "Something Went Wrong" });
@@ -122,7 +122,7 @@ employeeCrtl.updateEmployee = async function(req, res) {
                 })
             }
         }
-        return res.status(201).json({ status: 201, data: emp_detail, message: "employee details updated Succesfully" })
+        return res.status(201).json({ status: 201, data: emp_detail, message: "Employee details updated Succesfully" })
 
     } catch (e) {
         return res.status(400).json({ status: 400, message: "Something Went Wrong" });
@@ -366,7 +366,7 @@ employeeCrtl.uploaddocs = async function(req, res) {
         reqObj._id = id;
         reqObj.status = status;
         var emp_detail = await employeeService.addAndUpdateEmployee(reqObj)
-        return res.status(201).json({ status: 201, data: emp_detail, message: "employee details added Succesfully" })
+        return res.status(201).json({ status: 201, data: emp_detail, message: "Employee details added Succesfully" })
 
     } catch (e) {
         return res.status(400).json({ status: 400, message: "Something Went Wrong" });
@@ -502,7 +502,8 @@ employeeCrtl.gmrStatusUpdate = async function(req, res) {
     var id = obj._id
     var employeeDoc = obj.employee_docs
     var gmrDocs = obj.gmr_docs
-    console.log("employee_docs", employeeDoc)
+    var reason = obj.reason
+    console.log("employee_docs", employeeDoc, reason)
     var status = obj.img_status
     console.log("id", id, status);
 
@@ -513,6 +514,8 @@ employeeCrtl.gmrStatusUpdate = async function(req, res) {
         reqObj.img_status = status;
         reqObj.employee_docs = employeeDoc;
         reqObj.gmr_docs = gmrDocs;
+        reqObj.reason = reason;
+        console.log("reason", reqObj)
         var emp_detail = await employeeService.addAndUpdateEmployee(reqObj)
         if (emp_detail) {
             if (emp_detail.img_status == "Awaiting Documents") {

@@ -409,13 +409,13 @@ export class AssociateScreenComponent implements OnInit {
     if (value == 'Approved') {
       this.immigrationService.updateRequest(postValue, "true").subscribe((data: any) => {
         console.log(data);
-        this.openSnackBar();
+        this.openSnackBar(value);
         window.location.reload();
       });
     } else if (value == 'Rejected') {
       this.immigrationService.updateRequest(postValue, "false").subscribe((data: any) => {
         console.log(data);
-        this.openSnackBar();
+        this.openSnackBar(value);
         window.location.reload();
       });
     }
@@ -423,8 +423,8 @@ export class AssociateScreenComponent implements OnInit {
 
   }
 
-  openSnackBar() {
-    this._snackBar.open('Updated Successfully', '', {
+  openSnackBar(value) {
+    this._snackBar.open( value +' Successfully', '', {
       duration: 5000,
     });
   }
@@ -446,6 +446,39 @@ export class AssociateScreenComponent implements OnInit {
   //   XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
   //   /* save file */
   //   XLSX.writeFile(wb, 'SheetTest.xlsx');
+
+  // downloadAllEmpDocuments(files) {
+  //     const zip = new JSZip();
+      
+
+  //     for (let i = 0; i < files?.length; i++) {
+  //         let headers = new HttpHeaders({
+  //           "Authorization": "Bearer " + this.user.token,
+  //         });
+  //         this.http.get(BACK_END_URL + files[i].filepath, { headers, responseType: "arraybuffer" })
+  //           .toPromise()
+  //           .then(blob => {
+  //             saveAs(blob, files[i].originalname);
+  //             // zip.file(files[i].originalname,blob)
+  //           })
+  //           // var x =  this.http.get(BACK_END_URL + files[i].filepath, { headers, responseType: "blob" });
+  //           // zip.file( 'test',x)
+
+  //     //       zip.generateAsync({type:"blob"})
+  //     // .then(function(content) {
+  //     //     // see FileSaver.js
+  //     //     saveAs(content, "exampe.zip");
+  //     // });
+  //         }
+  //     zip.file("hello.txt", "Hello World\n");
+
+  //     zip.generateAsync({type:"blob"})
+  //     .then(function(content) {
+  //         // see FileSaver.js
+  //         saveAs(content, "example.zip");
+  //     });
+  // }
+
 
   downloadAllEmpDocuments(files) {
     console.log(files)

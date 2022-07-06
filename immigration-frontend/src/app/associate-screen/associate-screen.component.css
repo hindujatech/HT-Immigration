@@ -53,7 +53,7 @@ tr.example-element-row:not(.example-expanded-row):active {
     border-bottom-width: 0;
     font-weight: 500 !important;
     color: #404040 !important;
-    font-size: 13px !important;
+    font-size: 12px !important;
 }
 
 .example-element-detail {
@@ -223,4 +223,8 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .checklist ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
     color: transparent;
+}
+
+.filter_class ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 5px !important;
 }

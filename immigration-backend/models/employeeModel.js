@@ -14,7 +14,7 @@ var employeeSchema = new Schema({
     //pin_code: { type: String },
     nationality: { type: String },
     country: { type: String },
-    desiganation: { type: String },
+    designation: { type: String },
     band: { type: String },
     business_unit: { type: String },
     base_location: { type: String },
@@ -52,7 +52,8 @@ var employeeSchema = new Schema({
     comments: { type: String },
     created_date: { type: Date, default: Date.now },
     dependency: { type: String },
-    manager_id: { type: String }
+    manager_id: { type: String },
+    reason: { type: String }
 })
 
 module.exports = mongoose.model("employee_details", employeeSchema, "employee_details");

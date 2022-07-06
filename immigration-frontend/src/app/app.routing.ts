@@ -8,20 +8,40 @@ import { RequestCreateComponent } from "./request-create/request-create.componen
 import { AuthGuard } from './_guards/auth.guard';
 
 export const routes: Routes = [
-    { path: '', component: LoginComponent},
-    { path: 'homepage', component: AssociateScreenComponent,canActivate:[AuthGuard]},
-    { path: 'login', component: LoginComponent},
-    {path:'request-create', component: RequestCreateComponent,canActivate:[AuthGuard]},
-    {path:'request-edit/:id', component: RequestCreateComponent,canActivate:[AuthGuard]},
-    {path:'add-document/:id', component: AddDocumentComponent,canActivate:[AuthGuard]},
-    {path:'imgr-view/:id', component:ImmigrationViewComponent,canActivate:[AuthGuard]},
+    { path: '', 
+     component: LoginComponent
+    },
+    { path: 'homepage',
+      component: AssociateScreenComponent,
+      canActivate:[AuthGuard]
+    },
+    { path: 'login',
+      component: LoginComponent
+    },
+    { path:'request-create',
+      component: RequestCreateComponent,
+      canActivate:[AuthGuard]
+    },
+    { path:'request-edit/:id', 
+      component: RequestCreateComponent,
+      canActivate:[AuthGuard]
+    },
+    { path:'add-document/:id', 
+      component: AddDocumentComponent,
+      canActivate:[AuthGuard]
+    },
+    {
+      path:'imgr-view/:id', 
+      component:ImmigrationViewComponent,
+      canActivate:[AuthGuard]
+    },
     {
         path: '404',
          component: AssociateScreenComponent
-      },
-      {
-        path:'**',
-        component:AssociateScreenComponent
-      },
+    },
+    {
+      path:'**',
+      component:LoginComponent
+    },
 
 ];

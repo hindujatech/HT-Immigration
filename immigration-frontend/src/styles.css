@@ -32,7 +32,7 @@ p.wt_txt {
     font-size: 14px;
     padding: 10px 32px;
     border-radius: 3px;
-    font-weight: 700;
+    font-weight: 500;
     margin-left: 58px !important;
 }
 
@@ -141,7 +141,7 @@ span.icnl {
 p.proc_t {
     color: #fff;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 500;
     margin-top: 70px;
     margin-left: 13px;
 }
@@ -149,7 +149,7 @@ p.proc_t {
 p.proc_t2 {
     color: #fff;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 500;
     margin-top: 70px;
     margin-left: -5px;
 }
@@ -157,7 +157,7 @@ p.proc_t2 {
 p.proc_t3 {
     color: #fff;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 500;
     margin-top: 70px;
     margin-left: -10px;
 }

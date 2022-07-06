@@ -23,6 +23,7 @@
         "angular7-csv": "^0.2.12",
         "file-saver": "^2.0.5",
         "jszip": "^3.6.0",
+        "moment": "^2.29.3",
         "ng2-file-upload": "^1.4.0",
         "ngx-spinner": "^7.1.4",
         "rxjs": "~6.6.0",

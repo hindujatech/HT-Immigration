@@ -276,7 +276,7 @@ export class RequestCreateComponent implements OnInit {
     } else {
       this.genderStatus = 'female'
     }
-    this.saveBtn = 'SAVE & NEXT';
+    this.saveBtn = 'Save & Next';
     this.personalDetails = new FormGroup({
       firstname: new FormControl("", [Validators.required]),
       lastname: new FormControl("", [Validators.required]),
@@ -292,7 +292,7 @@ export class RequestCreateComponent implements OnInit {
     });
 
     this.projectDetails = new FormGroup({
-      desiganation: new FormControl("", [Validators.required]),
+      designation: new FormControl("", [Validators.required]),
       band: new FormControl("", [Validators.required]),
       business_unit: new FormControl("", [Validators.required]),
       base_location: new FormControl("", [Validators.required]),
@@ -306,7 +306,7 @@ export class RequestCreateComponent implements OnInit {
       issue: new FormControl("", [Validators.required]),
       issue_date: new FormControl("", [Validators.required]),
       expiry_date: new FormControl("", [Validators.required]),
-      place_of_birth: new FormControl("", [Validators.required])
+      place_of_birth: new FormControl("", [Validators.required,Validators.pattern('^[a-zA-Z]{1}[a-zA-Z0-9\ \-\_\/\0]*$'),Validators.maxLength(30),Validators.minLength(3)])
     });
 
     this.visaDetails = new FormGroup({
@@ -386,7 +386,7 @@ export class RequestCreateComponent implements OnInit {
           country: new FormControl(this.requestValue.data[0].country, [Validators.required])
         });
         this.projectDetails = new FormGroup({
-          desiganation: new FormControl(this.requestValue.data[0].desiganation, [Validators.required]),
+          designation: new FormControl(this.requestValue.data[0].designation, [Validators.required]),
           band: new FormControl(this.requestValue.data[0].band, [Validators.required]),
           business_unit: new FormControl(this.requestValue.data[0].business_unit, [Validators.required]),
           base_location: new FormControl(this.requestValue.data[0].base_location, [Validators.required]),
@@ -401,7 +401,7 @@ export class RequestCreateComponent implements OnInit {
           issue: new FormControl(this.requestValue.data[0].issue, [Validators.required]),
           issue_date: new FormControl(this.requestValue.data[0].issue_date, [Validators.required]),
           expiry_date: new FormControl("", [Validators.required]),
-          place_of_birth: new FormControl(this.requestValue.data[0].place_of_birth, [Validators.required]),
+          place_of_birth: new FormControl(this.requestValue.data[0].place_of_birth, [Validators.required,Validators.pattern('^[a-zA-Z]{1}[a-zA-Z0-9\ \-\_\/\0]*$'),Validators.maxLength(30),Validators.minLength(3)]),
           // ECNR_status: new FormControl(this.requestValue.data[0].ECNR_status)
         });
 
@@ -458,9 +458,14 @@ export class RequestCreateComponent implements OnInit {
 
   imgCheck(val) {
     if (this.route.snapshot.url[0].path == 'request-edit') {
-      var test = val;
-      console.log(test);
-      localStorage.setItem("imgView", JSON.stringify(test));
+      // var test = val;
+      console.log(this.route.snapshot);
+      var temp = '/imgr-view/'+this.route.snapshot.url[1].path;
+      console.log(temp)
+      this.router.navigate([temp]);
+      // localStorage.setItem("imgView", JSON.stringify(test));
+    } else {
+      this.router.navigate(['/homepage'])
     }
   }
 

@@ -80,7 +80,7 @@ console.log("asdasdasdas")
            this.router.navigate(['/homepage']);
           },
           error => {
-            this.alertService.error("Username or password is incorrect d");
+            this.alertService.error("Username or Password is incorrect");
             (<HTMLInputElement>document.getElementById("submit_btn")).disabled = false;
             // alert(error);
           });

@@ -62,7 +62,7 @@ export class AddDocumentComponent implements OnInit {
       if (!pFileList.hasOwnProperty(key)) continue;
       console.log("pFileList[key]", pFileList[key]);
       this.files.push(pFileList[key]);
-      this._snackBar.open("Successfully upload!", 'Close', {
+      this._snackBar.open("Uploaded Successfully !", 'Close', {
         duration: 2000,
       });
     }
@@ -87,7 +87,7 @@ export class AddDocumentComponent implements OnInit {
 
   deleteFile(f: any){
     this.files = this.files.filter(function(w: any){ return w.name != f.name });
-    this._snackBar.open("Successfully delete!", 'Close', {
+    this._snackBar.open("Deleted Successfully !", 'Close', {
       duration: 2000,
     });
   }

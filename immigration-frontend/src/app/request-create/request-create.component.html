@@ -19,7 +19,7 @@
 
 <div class="container">
     <div class="row pad_univ">
-        <button mat-raised-button class="export_btn" style="float: left !important;" routerLink="/homepage" (click)="imgCheck('true')"><i class="fa fa-arrow-left" aria-hidden="true"></i> &ensp;BACK</button>
+        <button mat-raised-button class="export_btn" style="float: left !important;" (click)="imgCheck('true')"><i class="fa fa-arrow-left" aria-hidden="true"></i> &ensp;BACK</button>
 
         <mat-vertical-stepper #stepper>
             <mat-step [stepControl]="personalDetails">
@@ -180,8 +180,8 @@
                             <div class="form-group bd-t-0-force filter_class pd-b-0-force border-0">
                                 <label class="form-control-label tx-bold">Designation<span class="tx-danger">*</span></label>
                                 <mat-form-field class="col-12 pd-0" appearance="outline">
-                                    <input formControlName="desiganation" [(ngModel)]="user.designation_name" placeholder="Select Designation" matInput readonly>
-                                    <mat-error *ngIf="projectDetails.controls.desiganation.hasError('required')">
+                                    <input formControlName="designation" [(ngModel)]="user.designation_name" placeholder="Select Designation" matInput readonly>
+                                    <mat-error *ngIf="projectDetails.controls.designation.hasError('required')">
                                         Designation is <strong>required</strong>
                                     </mat-error>
                                 </mat-form-field>
@@ -234,7 +234,7 @@
                             <div class="form-group filter_class mg-md-l--1 border-0">
                                 <label class="form-control-label tx-bold">Project Name<span class="tx-danger">*</span></label>
                                 <mat-form-field class="col-12 pd-0" appearance="outline">
-                                    <mat-select formControlName="project_name" placeholder="Select project name">
+                                    <mat-select formControlName="project_name" placeholder="Select Project Name">
                                         <mat-option disabled>Select</mat-option>
                                         <mat-option *ngFor="let projectName of emp_project_name" [value]="projectName.name">{{projectName.name}}</mat-option>
                                     </mat-select>
@@ -316,13 +316,13 @@
 
                         <div class="col-md-4 mg-t--1 mg-md-t-0">
                             <div class="form-group filter_class mg-md-l--1 border-0">
-                                <label class="form-control-label tx-bold">Place of issue<span class="tx-danger">*</span></label>
+                                <label class="form-control-label tx-bold">Place of Issue<span class="tx-danger">*</span></label>
                                 <mat-form-field class="col-12 pd-0" appearance="outline">
                                     <ng-container *ngIf="passport_place_issue != null ">
-                                        <input formControlName="issue" placeholder="Enter Place of issue" [(ngModel)]="passport_place_issue" matInput autocomplete="off" readonly>
+                                        <input formControlName="issue" placeholder="Enter Place of Issue" [(ngModel)]="passport_place_issue" matInput autocomplete="off" readonly>
                                     </ng-container>
                                     <ng-container *ngIf="passport_place_issue == null ">
-                                        <input formControlName="issue" placeholder="Enter Place of issue" matInput autocomplete="off">
+                                        <input formControlName="issue" placeholder="Enter Place of Issue" matInput autocomplete="off">
                                     </ng-container>
                                     <mat-error *ngIf="passportDetails.controls.issue.hasError('required')">
                                         Place of issue is <strong>required</strong>
@@ -354,8 +354,6 @@
                             <div class="form-group filter_class mg-md-l--1 border-0">
                                 <label class="form-control-label tx-bold">Expiry Date<span class="tx-danger">*</span></label>
                                 <mat-form-field class="col-12 pd-0" appearance="outline">
-                                    <ng-container *ngIf="passport_number != '' "></ng-container>
-                                    <ng-container *ngIf="passport_number != '' "></ng-container>
                                     <input formControlName="expiry_date" placeholder="Select expiry date" matInput readonly>
                                     <mat-error *ngIf="passportDetails.controls.expiry_date.hasError('required')">
                                         Expiry Date is <strong>required</strong>
@@ -368,11 +366,18 @@
                             <div class="form-group filter_class mg-md-l--1 border-0">
                                 <label class="form-control-label tx-bold">Place of Birth<span class="tx-danger">*</span></label>
                                 <mat-form-field class="col-12 pd-0" appearance="outline">
-                                    <ng-container *ngIf="passport_number != '' "></ng-container>
-                                    <ng-container *ngIf="passport_number != '' "></ng-container>
-                                    <input formControlName="place_of_birth" placeholder="Enter place of birth" matInput autocomplete="off">
+                                    <input formControlName="place_of_birth" placeholder="Enter Place of Birth" matInput autocomplete="off" minlength="3" maxlength="30">
                                     <mat-error *ngIf="passportDetails.controls.place_of_birth.hasError('required')">
                                         Place of Birth is <strong>required</strong>
+                                    </mat-error>
+                                    <mat-error *ngIf="passportDetails.controls.place_of_birth.hasError('pattern')">
+                                        Place of Birth should start with an <strong>alphabet</strong>
+                                    </mat-error>
+                                    <mat-error *ngIf="passportDetails.controls.place_of_birth.hasError('minlength')">
+                                        Minimum length of <strong>3</strong>
+                                    </mat-error>
+                                    <mat-error *ngIf="passportDetails.controls.place_of_birth.hasError('maxlength')">
+                                        Maximum length of <strong>30</strong>
                                     </mat-error>
                                 </mat-form-field>
                             </div>
@@ -411,7 +416,7 @@
                             <div class="form-group filter_class mg-md-l--1 border-0">
                                 <label class="form-control-label tx-bold">To<span class="tx-danger">*</span>&nbsp; &nbsp; &nbsp;</label>
                                 <mat-form-field class="col-12 pd-0" appearance="outline">
-                                    <mat-select formControlName="to" placeholder="Select to">
+                                    <mat-select formControlName="to" placeholder="Select To">
                                         <mat-option disabled>Select</mat-option>
                                         <mat-option *ngFor="let toPlace of countries" [value]="toPlace.name">{{toPlace.name}}</mat-option>
                                     </mat-select>
@@ -424,9 +429,9 @@
 
                         <div class="col-md-4 mg-t--1 mg-md-t-0">
                             <div class="form-group filter_class mg-md-l--1 border-0">
-                                <label class="form-control-label tx-bold">Visa<span class="tx-danger">*</span>&nbsp; &nbsp; &nbsp;</label>
+                                <label class="form-control-label tx-bold">Visa Type<span class="tx-danger">*</span>&nbsp; &nbsp; &nbsp;</label>
                                 <mat-form-field class="col-12 pd-0" appearance="outline">
-                                    <mat-select formControlName="visa_type" placeholder="Select visa type">
+                                    <mat-select formControlName="visa_type" placeholder="Select Visa Type">
                                         <mat-option disabled>Select</mat-option>
                                         <mat-option value="Fresh">Fresh</mat-option>
                                         <mat-option value="Extension">Extension</mat-option>
@@ -444,7 +449,7 @@
                             <div class="form-group filter_class mg-md-l--1 border-0">
                                 <label class="form-control-label tx-bold">Visa Category<span class="tx-danger">*</span>&nbsp; &nbsp; &nbsp;</label>
                                 <mat-form-field class="col-12 pd-0" appearance="outline">
-                                    <mat-select formControlName="visa_category" placeholder="Select visa_category">
+                                    <mat-select formControlName="visa_category" placeholder="Select Visa Category">
                                         <mat-option disabled>Select</mat-option>
                                         <mat-option value="Business visa">BUSINESS VISA</mat-option>
                                         <mat-option value="H-1B CAP">H-1B CAP</mat-option>
@@ -467,7 +472,7 @@
 
                         <div class="col-md-4 mg-t--1 mg-md-t-0">
                             <div class="form-group filter_class mg-md-l--1 border-0">
-                                <label class="form-control-label tx-bold">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;</label>
+                                <label class="form-control-label tx-bold">Visa Classification</label>
                                 <mat-form-field class="col-12 pd-0" appearance="outline">
                                     <input formControlName="report" placeholder="Enter Visa Classification" matInput autocomplete="off">
                                 </mat-form-field>
@@ -475,7 +480,7 @@
                         </div>
                     </div>
                     <div>
-                        <button mat-button matStepperPrevious class="creat_rrf_prev">PREVIOUS</button>
+                        <button mat-button matStepperPrevious class="creat_rrf_prev">Previous</button>
                         <button mat-button matStepperNext class="creat_rrf_next" (click)="onSubmit()">{{saveBtn}}</button>
                     </div>
                 </form>
@@ -646,8 +651,8 @@
                             <div class="form-group bd-t-0-force filter_class pd-b-0-force border-0">
                                 <label class="form-control-label tx-bold">Designation<span class="tx-danger">*</span></label>
                                 <mat-form-field class="col-12 pd-0" appearance="outline">
-                                    <input formControlName="desiganation" [(ngModel)]="user.designation_name" readonly placeholder="Select Designation" matInput>
-                                    <mat-error *ngIf="projectDetails.controls.desiganation.hasError('required')">
+                                    <input formControlName="designation" [(ngModel)]="user.designation_name" readonly placeholder="Select Designation" matInput>
+                                    <mat-error *ngIf="projectDetails.controls.designation.hasError('required')">
                                         Designation is <strong>required</strong>
                                     </mat-error>
                                 </mat-form-field>
@@ -1079,8 +1084,8 @@
                             <div class="form-group bd-t-0-force filter_class pd-b-0-force border-0">
                                 <label class="form-control-label tx-bold">Designation<span class="tx-danger">*</span></label>
                                 <mat-form-field class="col-12 pd-0" appearance="outline">
-                                    <input formControlName="desiganation" placeholder="Select Designation" matInput>
-                                    <mat-error *ngIf="projectDetails.controls.desiganation.hasError('required')">
+                                    <input formControlName="designation" placeholder="Select Designation" matInput>
+                                    <mat-error *ngIf="projectDetails.controls.designation.hasError('required')">
                                         Designation is <strong>required</strong>
                                     </mat-error>
                                 </mat-form-field>

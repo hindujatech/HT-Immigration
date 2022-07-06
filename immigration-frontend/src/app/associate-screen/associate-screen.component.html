@@ -87,8 +87,8 @@
             </div>
             <div class="filter_class jbsrc">
                 <mat-form-field appearance="outline" style="width: 300px;margin-top: -5px; ">
-                    <mat-label style="top:15px;">Employee Search</mat-label>
-                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Employee Name And Id Search" autocomplete="off" style="height: 0 !important;">
+                    <!-- <mat-label style="top:15px;">Employee Search</mat-label> -->
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Employee Name And Id Search" autocomplete="off">
                     <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
                 <!-- <button (click)="addEmployee()" >addEmployee</button> -->
@@ -161,7 +161,7 @@
                                         <div class="row view_detail">
                                             <div class="col-lg-4 colValue">
                                                 <h4>Project Details</h4>
-                                                <h5>Designation </h5><span> {{element.desiganation}}</span>
+                                                <h5>Designation </h5><span> {{element.designation}}</span>
                                                 <h5>Band </h5><span> {{element.band}}</span>
                                                 <h5>Business Unit </h5><span> {{element.business_unit}}</span>
                                                 <h5>Base Location </h5><span> {{element.base_location}}</span>
@@ -175,7 +175,7 @@
                                                 <h5>To </h5><span>{{element.to}}</span>
                                                 <h5>Visa Type </h5><span>{{element.visa_type}}</span>
                                                 <h5>Visa Category </h5><span>{{element.visa_category}}</span>
-                                                <h5>Note </h5><span>{{element.report}}</span>
+                                                <h5>Visa Classification </h5><span>{{element.report}}</span>
                                             </div>
                                             <mat-divider vertical></mat-divider>
                                             <div class="col-lg-4 colValue " style="max-width: 30%;">
@@ -193,11 +193,10 @@
                                                     <ng-container *ngIf="element.status == 'Approved' || element.status == 'Rejected'">
                                                         <h4>Comments</h4>
                                                         {{element.comments}}
-                                                        <h4 class="mt20">Decision</h4>
-                                                        Manager {{element.status}}
+                                                        <h4 class="mt20">Decision </h4> Manager {{element.status}}
                                                     </ng-container>
                                                     <ng-container *ngIf="element.status != 'Approved' && element.status != 'Rejected'">
-                                                        <h4 class="mt20">Decision</h4>
+                                                        <h4 class="mt20">Decision <span style="color: #f02828 !important; font-size: 14px !important;">*</span> </h4>
                                                         <div class="mngrBtn">
                                                             <button mat-flat-button style="float: left; background-color: #f23b3d; outline-color: #fce6e8; width: 30%; color: #fce6e8 !important;" (click)="onClick( rejected,element._id, element.employee_docs)">{{this.rejected}}</button>
                                                             <button mat-flat-button style="float: right; background-color: #28bc73; color: white !important; width: 30%; outline-color: white;" (click)="onClick( approved, element._id, element.employee_docs)">{{this.approved}}</button>

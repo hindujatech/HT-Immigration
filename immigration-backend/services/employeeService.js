@@ -4,6 +4,7 @@ var chatModel = require('../models/messageModel.js');
 employeeMaster = {}
 
 employeeMaster.addAndUpdateEmployee = async function(req, res) {
+    console.log("asdasdas", req)
     try {
         req = new employeeModel(req);
         let data = await employeeModel.findOneAndUpdate({ _id: req._id }, req, { new: true, upsert: true })

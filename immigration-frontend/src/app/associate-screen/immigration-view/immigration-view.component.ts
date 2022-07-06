@@ -10,7 +10,7 @@ import * as XLSX from 'xlsx';
 import { BACK_END_URL } from 'src/app/app.global';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { files } from 'jszip';
-
+const moment = require('moment');
 
 
 @Component({
@@ -45,6 +45,7 @@ export class ImmigrationViewComponent implements OnInit {
     console.log("asdsa", this.user)
     this.img_id = this.user.id
     this.immigrationService.getRequestById(this.route.snapshot.params.id).subscribe((data: any) => {
+      console.log("response",data)
       this.element = data.data[0];
       localStorage.setItem("chatEmpDetails", JSON.stringify(this.element));
       this.emp_data = { emp_id: this.route.snapshot.params.id, chat_on: 'img', emp_number: this.element.emp_Id }
@@ -61,6 +62,12 @@ export class ImmigrationViewComponent implements OnInit {
         this.isVisa = true
         console.log("sdasdsdfserew")
       }
+      
+      this.element.issue_date = moment(this.element.issue_date).format('DD-MMM-YYYY');
+      this.element.expiry_date = moment(this.element.expiry_date).format('DD-MMM-YYYY');
+      this.element.created_date = moment(this.element.created_date).format('DD-MMM-YYYY');
+      this.element.date_of_birth = moment(this.element.date_of_birth).format('DD-MMM-YYYY');
+
       this.excelFile.push(this.element);
       console.log("asdwda", typeof data.data[0].employee_docs, data.data[0].employee_docs)
 
@@ -79,7 +86,8 @@ export class ImmigrationViewComponent implements OnInit {
         this.gmr_bool = true
       }
       this.caseDetail = new FormGroup({
-        case_status: new FormControl(this.element.img_status, [Validators.required])
+        case_status: new FormControl(this.element.img_status, [Validators.required]),
+        reason: new FormControl(this.element.reason)
       });
       console.log(this.employeeDocs[0])
     });
@@ -146,14 +154,14 @@ export class ImmigrationViewComponent implements OnInit {
     filename = Object.keys(pFileList).map((key: any) => pFileList[key]);
     this.files.push(pFileList[0]);
     console.log(this.files)
-    this._snackBar.open("Successfully upload!", 'Close', {
+    this._snackBar.open("Uploaded Successfully !", 'Close', {
       duration: 2000,
     });
   }
 
   deleteFile(f: any) {
     this.files = this.files.filter(function (w: any) { return w.name != f.name });
-    this._snackBar.open("Successfully delete!", 'Close', {
+    this._snackBar.open("Deleted Successfully !", 'Close', {
       duration: 2000,
     });
   }
@@ -182,7 +190,7 @@ export class ImmigrationViewComponent implements OnInit {
           }
         });
       }
-      let postValue = { _id: this.route.snapshot.params.id, img_status: this.caseDetail.value.case_status, employee_docs: this.employeeDocs, gmr_docs: this.gmrDocs };
+      let postValue = { _id: this.route.snapshot.params.id, img_status: this.caseDetail.value.case_status, reason:this.caseDetail.value.reason, employee_docs: this.employeeDocs, gmr_docs: this.gmrDocs };
       this.immigrationService.imgStatusUpdate(postValue, this.img_id).subscribe((data: any) => {
         if (data.status == 201) {
           this._snackBar.open(data.message, '', {

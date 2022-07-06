@@ -52,7 +52,7 @@
                 <mat-divider vertical></mat-divider>
                 <div class="col-lg-4 colValue">
                     <h4>Project Details</h4>
-                    <h5>Designation </h5><span> {{element.desiganation}}</span>
+                    <h5>Designation </h5><span> {{element.designation}}</span>
                     <h5>Band </h5><span> {{element.band}}</span>
                     <h5>Business Unit </h5><span> {{element.business_unit}}</span>
                     <h5>Base Location </h5><span> {{element.base_location}}</span>
@@ -74,7 +74,7 @@
                     <h5>To </h5><span>{{element.to}}</span>
                     <h5>Visa Type </h5><span>{{element.visa_type}}</span>
                     <h5>Visa Category </h5><span>{{element.visa_category}}</span>
-                    <h5>Note </h5><span>{{element.report}}</span>
+                    <h5>Visa Classification </h5><span>{{element.report}}</span>
                 </div>
 
             </div>
@@ -201,7 +201,7 @@
                         <div class="filter_class jbsrc">
                             <mat-form-field appearance="outline" style="width:100% !important;">
                                 <mat-label>Select</mat-label>
-                                <mat-select formControlName="case_status" placeholder="Select case detail">
+                                <mat-select formControlName="case_status" [(ngModel)]="case_status" placeholder="Select case detail">
                                     <mat-option value="Awaiting Documents"> Awaiting Documents</mat-option>
                                     <mat-option value="Work In Progress">Work In Progress</mat-option>
                                     <mat-option value="Case Submitted / Decision Pending">Case Submitted / Decision Pending</mat-option>
@@ -213,10 +213,18 @@
                             </mat-form-field>
                         </div>
                     </div>
+                    <div class="col-md-4 mg-t--1 mg-md-t-0" *ngIf="case_status == 'RFE - Request for Evidence' || case_status ==  'Visa Approved' || case_status == 'Visa Denied' ">
+                        <div class="form-group filter_class mg-md-l--1 border-0">
+                            <mat-form-field class="col-12 pd-0" appearance="outline">
+                                <textarea formControlName="reason" [(ngModel)]="reason" placeholder="Enter Reason" matInput autocomplete="off">
+                                </textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
                     <div class="col-lg-2">
                         <button mat-flat-button class="send_btn" (click)="onSubmit()"><img src="../../../assets/Send.png">SUBMIT</button>
                     </div>
-                    <div class="offset-lg-5 col-lg-2">
+                    <div class="col">
                     </div>
                 </div>
 
