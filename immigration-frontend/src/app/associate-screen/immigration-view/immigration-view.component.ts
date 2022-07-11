@@ -124,24 +124,47 @@ export class ImmigrationViewComponent implements OnInit {
       .catch(err => console.error("download error = ", err));
   }
 
+  // downloadAllEmpDocuments() {
+  //   var zip = new JSZip();
+  //   for (let i = 0; i < this.employeeDocs?.length; i++) {
+  //     let headers = new HttpHeaders({
+  //       "Authorization": "Bearer " + this.user.token,
+  //     });
+  //     this.http.get(BACK_END_URL + this.employeeDocs[i].filepath, { headers, responseType: "blob" })
+  //       .toPromise()
+  //       .then(blob => {
+  //         saveAs(blob, this.employeeDocs[i].originalname);
+  //       })
+  //       .catch(err => console.error("download error = ", err));
+  //     //  for (let i = 0; i < this.employeeDocs?.length; i++) {
+
+  //     //  saveAs(BACK_END_URL+this.employeeDocs[i].filepath, this.employeeDocs[i].originalname); 
+
+  //   }
+
+  // }
+
   downloadAllEmpDocuments() {
+    console.log(this.employeeDocs)
     var zip = new JSZip();
+    
+    var imgFolder = zip.folder("employee-docs");
+    
     for (let i = 0; i < this.employeeDocs?.length; i++) {
       let headers = new HttpHeaders({
         "Authorization": "Bearer " + this.user.token,
       });
-      this.http.get(BACK_END_URL + this.employeeDocs[i].filepath, { headers, responseType: "blob" })
-        .toPromise()
-        .then(blob => {
-          saveAs(blob, this.employeeDocs[i].originalname);
-        })
-        .catch(err => console.error("download error = ", err));
-      //  for (let i = 0; i < this.employeeDocs?.length; i++) {
-
-      //  saveAs(BACK_END_URL+this.employeeDocs[i].filepath, this.employeeDocs[i].originalname); 
-
+      var res;
+      res =  this.http.get(BACK_END_URL + this.employeeDocs[i].filepath, { headers, responseType:'arraybuffer' })
+      .toPromise()
+      .catch(err => console.error("download error = ", err));
+      
+      imgFolder.file(this.employeeDocs[i].originalname, res, { base64: true });
     }
-
+    zip.generateAsync({ type: "blob" })
+      .then(function (content) {
+        saveAs(content, "employee-docs.zip");
+      });
   }
 
   onFileChange(pFileList: any) {

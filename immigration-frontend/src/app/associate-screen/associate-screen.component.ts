@@ -13,7 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UploadDialogComponent } from './upload-dialog/upload-dialog.component';
 import { BACK_END_URL } from '../app.global';
 import { HeaderComponent } from '../header/header.component';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 
@@ -117,8 +117,14 @@ export class AssociateScreenComponent implements OnInit {
     }
 
   ]
+  jsonHeader = 'application/json; odata=verbose';  
+  headersOld = new Headers({ 'Content-Type': this.jsonHeader, Accept: this.jsonHeader });  
+  headers = { 'Content-Type': this.jsonHeader, Accept: this.jsonHeader };  
+  filesArray: [];  
+  showFileArray: [];
 
   isExpansionDetailRow = (index: any, row: { hasOwnProperty: (arg0: string) => any; }) => row.hasOwnProperty('detailRow');
+  uploadFiles: any;
 
   constructor(private immigrationService: ImmigrationService, private route: Router, private _snackBar: MatSnackBar, public dialog: MatDialog,
     private http: HttpClient, private spinner: NgxSpinnerService) { }
@@ -366,7 +372,7 @@ export class AssociateScreenComponent implements OnInit {
   }
 
   downloadDocument(path, name) {
-    console.log("asdasd",path)
+    console.log("asdasd",path,BACK_END_URL + path)
     let headers = new HttpHeaders({
       "Authorization": "Bearer " + this.user.token,
     });
@@ -455,20 +461,24 @@ export class AssociateScreenComponent implements OnInit {
   //         let headers = new HttpHeaders({
   //           "Authorization": "Bearer " + this.user.token,
   //         });
-  //         this.http.get(BACK_END_URL + files[i].filepath, { headers, responseType: "arraybuffer" })
+  //         // this.http.get(BACK_END_URL + files[i].filepath, { headers, responseType: "arraybuffer" })
+  //         //   .toPromise()
+  //         //   .then(blob => {
+  //         //     // saveAs(blob, files[i].originalname);
+  //         //     zip.file('test',blob)
+  //         //   })
+  //         var x =  this.http.get(BACK_END_URL + files[i].filepath, { headers, responseType: "blob" })
   //           .toPromise()
   //           .then(blob => {
-  //             saveAs(blob, files[i].originalname);
-  //             // zip.file(files[i].originalname,blob)
+  //             // saveAs(blob, files[i].originalname);
+  //             zip.file('test',blob)
   //           })
-  //           // var x =  this.http.get(BACK_END_URL + files[i].filepath, { headers, responseType: "blob" });
-  //           // zip.file( 'test',x)
 
-  //     //       zip.generateAsync({type:"blob"})
-  //     // .then(function(content) {
-  //     //     // see FileSaver.js
-  //     //     saveAs(content, "exampe.zip");
-  //     // });
+  //           zip.generateAsync({type:"blob"})
+  //             .then(function(content) {
+  //                 // see FileSaver.js
+  //                 saveAs(content, "exampe.zip");
+  //             });
   //         }
   //     zip.file("hello.txt", "Hello World\n");
 
@@ -480,22 +490,51 @@ export class AssociateScreenComponent implements OnInit {
   // }
 
 
-  downloadAllEmpDocuments(files) {
-    console.log(files)
-    var zip = new JSZip();
-    for (let i = 0; i < files?.length; i++) {
-      let headers = new HttpHeaders({
-        "Authorization": "Bearer " + this.user.token,
-      });
-      this.http.get(BACK_END_URL + files[i].filepath, { headers, responseType: "blob" })
-        .toPromise()
-        .then(blob => {
-          saveAs(blob, files[i].originalname);
-        })
-        .catch(err => console.error("download error = ", err));
-      //  saveAs(BACK_END_URL+files[i].filepath, files[i].originalname); 
-    }
-  }
+
+  // downloadAllEmpDocuments(files) {
+          
+  //   for (let i = 0; i < files?.length; i++) {
+  //     console.log(files);
+  //     this.loadSvgData((BACK_END_URL + files[i].filepath), this.saveAsZip);
+  //   }
+  // }
+
+  // private loadSvgData(url: string, callback: Function) : void{
+
+  //   let headers = new HttpHeaders({
+  //     "Authorization": "Bearer " + this.user.token,
+  //   });
+
+  //   this.http.get(url, {headers, responseType: "arraybuffer" })
+  //            .subscribe(x => callback(x));
+  // }
+
+  // private saveAsZip(content: Blob) : void{
+  //   var zip = new JSZip();
+  //   console.log(content)
+  //   zip.file("image.doc", content);
+  //   zip.generateAsync({ type: "blob" })
+  //      .then(blob => saveAs(blob,'image.zip'));
+  // };
+
+
+
+  // downloadAllEmpDocuments(files) {
+  //   console.log(files)
+  //   var zip = new JSZip();
+  //   for (let i = 0; i < files?.length; i++) {
+  //     let headers = new HttpHeaders({
+  //       "Authorization": "Bearer " + this.user.token,
+  //     });
+  //     this.http.get(BACK_END_URL + files[i].filepath, { headers, responseType: "blob" })
+  //       .toPromise()
+  //       .then(blob => {
+  //         saveAs(blob, files[i].originalname);
+  //       })
+  //       .catch(err => console.error("download error = ", err));
+  //     //  saveAs(BACK_END_URL+files[i].filepath, files[i].originalname); 
+  //   }
+  // }
 
   openDialog(element: any, docs: any): void {
     console.log("element",element);
@@ -508,5 +547,144 @@ export class AssociateScreenComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+
+
+
+
+
+  // async readFiles(listName: string, options?: any) {  
+  //   const httpOptions = {  
+  //     headers: new HttpHeaders({
+  //       responseType: 'blob' as 'json'
+  //     }).set('Authorization', ("Bearer " + this.user.token)) 
+  //   };  
+  //   let res;  
+  //   const url = BACK_END_URL
+  //   res = await this.http.get(url, httpOptions).toPromise().catch((err: HttpErrorResponse) => {  
+  //     const error = err.error;  
+  //     return error;  
+  //   });  
+  //   return this.parseResults(res);  
+  // }  
+  // parseResults(res) {  
+  //   if (res) {  
+  //     if (res.hasOwnProperty('d') && res.d.hasOwnProperty('results')) {  
+  //       return res.d.results;  
+  //     } else if (res.hasOwnProperty('error')) {  
+  //       const obj: any = res.error;  
+  //       obj.hasError = true;  
+  //       return obj;  
+  //     } else {  
+  //       return {  
+  //         hasError: true,  
+  //         comments: res  
+  //       };  
+  //     }  
+  //   } else {  
+  //     return {  
+  //       hasError: true,  
+  //       comments: 'Check the response in network trace'  
+  //     };  
+  //   }  
+  // }  
+  // getHeaders(bAddContext, returnOp) {  
+  //   // const headerCopy: any = Object.assign({}, this.headers);  
+  //   // if (bAddContext) {  
+  //   //   const context: any = document.getElementById('__REQUESTDIGEST');  
+  //   //   if (context) {  
+  //   //     headerCopy['X-RequestDigest'] = context.value;  
+  //   //   }  
+  //   // }  
+  //   // if (returnOp) {  
+  //   //   const httpOptions = {  
+  //   //     headers: new HttpHeaders(headerCopy)  
+  //   //   };  
+  //   //   return httpOptions;  
+  //   // } else {  
+  //   //   return headerCopy;  
+  //   // } 
+  //   let headers = new HttpHeaders({
+  //     "Authorization": "Bearer " + this.user.token,
+  //   }); 
+  //   return headers;
+  
+  // }  
+  
+  // async getFilesFromLibrary() {  
+  //   const results = await this.readFiles('Test_ABC');  
+  //   this.filesArray = results;  
+  //   console.log(results);  
+  // }  
+  // downloadAllEmpDocuments(files) {  
+  //   this.createZip(files, 'Sample');  
+  // }  
+  // async getFile(url: string) {  
+  //   console.log('url',url,url['filepath'])
+  //   const httpOptions = {  
+  //     headers: new HttpHeaders({
+  //       responseType: 'blob' as 'json'
+  //     }).set('Authorization', ("Bearer " + this.user.token)) 
+  //   };  
+  //   let localURL = BACK_END_URL +url['filepath'];
+  //   console.log('localurl',localURL)
+  //   const res = this.http.get(localURL,httpOptions).toPromise()
+  //   .then(blob => {
+  //     console.log(blob,'blob');
+  //   })
+  //   .catch(err => console.error("download error = ", err));
+  //   console.log(res,'res') 
+  //   return res;  
+  // }  
+  // async createZip(files: any[], zipName: string) {  
+  //   const zip = new JSZip();  
+  //   const name = zipName + '.zip';  
+  //   // tslint:disable-next-line:prefer-for-of  
+  //   for (let counter = 0; counter < files.length; counter++) {  
+  //     const element = files[counter];  
+  //     console.log(element,files,'createzipi')
+  //     const fileData: any = await this.getFile(element);  
+  //     console.log('filedata',fileData)
+  //     const b: any = new Blob([fileData], { type: '' + fileData.type + '' });  
+  //     zip.file(element.substring(element.lastIndexOf('/') + 1), b);  
+  //   }  
+  //   zip.generateAsync({ type: 'blob' }).then((content) => {  
+  //     if (content) {  
+  //       saveAs(content, name);  
+  //     }  
+  //   });  
+  // }  
+
+
+
+  // downloadAllEmpDocuments(files) {
+  //   this.uploadFiles = files;
+  //   this.download();
+  // }
+  
+  downloadAllEmpDocuments(files) {
+    // this.uploadFiles = files;
+    var zip = new JSZip();
+    
+    var imgFolder = zip.folder("gmr-docs");
+    
+    for (let i = 0; i < files?.length; i++) {
+      let headers = new HttpHeaders({
+        "Authorization": "Bearer " + this.user.token,
+      });
+      var res;
+      res =  this.http.get(BACK_END_URL + files[i].filepath, { headers, responseType:'arraybuffer' })
+      .toPromise()
+      .catch(err => console.error("download error = ", err));
+      
+      imgFolder.file(files[i].originalname, res, { base64: true });
+    }
+    zip.generateAsync({ type: "blob" })
+      .then(function (content) {
+        saveAs(content, "gmr-docs.zip");
+      });
+  }
+
+
+
 
 }
