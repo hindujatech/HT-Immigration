@@ -153,6 +153,15 @@
                             </ng-container>
                         </ng-container>
 
+                        <ng-container matColumnDef="chat">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                            <td mat-cell *matCellDef="let element">
+                                <ng-container *ngIf="this.view_type == 'employee' || element._id == chat_emp_id">
+                                    <span (click)="openChatDialog()"> <mat-icon> chat</mat-icon></span>
+                                </ng-container>
+                            </td>
+                        </ng-container>
+
                         <!-- Expanded Content Column  -->
                         <ng-container matColumnDef="expandedDetail">
                             <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
@@ -272,9 +281,7 @@
                                                 </div>
                                             </div>
                                         </ng-container>
-                                        <!-- <div *ngIf="this.view_type == 'employee' && expandedElement && element._id == chat_emp_id">
-                                            <app-chat-inbox [chatMessage]="emp_data"></app-chat-inbox>
-                                        </div> -->
+
                                     </mat-card>
                                 </div>
                             </td>

@@ -56,8 +56,9 @@ export class ChatInboxComponent implements OnInit {
           const element = document.createElement('li');
           element.innerHTML = msg.message;
           element.style.background = 'white';
-          element.style.padding =  '15px 30px';
+          element.style.padding =  '10px 15px';
           element.style.margin = '10px';
+          element.style.borderRadius = '8px';
           document.getElementById('message-list').appendChild(element);
          }  
       }else if(msg.chat_on == 'emp'){
@@ -67,8 +68,9 @@ export class ChatInboxComponent implements OnInit {
           const element = document.createElement('li');
           element.innerHTML = msg.message;
           element.style.background = 'white';
-          element.style.padding =  '15px 30px';
+          element.style.padding =  '10px 15px';
           element.style.margin = '10px';
+          element.style.borderRadius = '8px';
           document.getElementById('message-list').appendChild(element);
         }  
       }
@@ -92,16 +94,18 @@ export class ChatInboxComponent implements OnInit {
             const element = document.createElement('li');
             element.innerHTML = res.message;
             element.style.background = 'white';
-            element.style.padding =  '15px 30px';
+            element.style.padding =  '10px 15px';
             element.style.margin = '10px';
+            element.style.borderRadius = '8px';
             element.style.textAlign = 'right';
             document.getElementById('message-list').appendChild(element);
           }else{
             const element = document.createElement('li');
             element.innerHTML = res.message;
             element.style.background = 'white';
-            element.style.padding =  '15px 30px';
+            element.style.padding =  '10px 15px';
             element.style.margin = '10px';
+            element.style.borderRadius = '8px';
             element.style.textAlign = 'left';
             document.getElementById('message-list').appendChild(element);
           }
@@ -125,8 +129,9 @@ export class ChatInboxComponent implements OnInit {
       const element = document.createElement('li');
       element.innerHTML = this.message;
       element.style.background = 'white';
-      element.style.padding =  '15px 30px';
+      element.style.padding =  '10px 15px';
       element.style.margin = '10px';
+      element.style.borderRadius = '8px';
       element.style.textAlign = 'right';
       document.getElementById('message-list').appendChild(element);
       this.message = '';

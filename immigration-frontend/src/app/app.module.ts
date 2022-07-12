@@ -50,6 +50,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { AlertComponent } from './_directives';
 import { AlertService } from './service/alert.service';
 import { ChatInboxComponent } from './chat-inbox/chat-inbox.component';
+import { ChatPopUpComponent } from './chat-pop-up/chat-pop-up.component';
 
 
 
@@ -66,7 +67,8 @@ import { ChatInboxComponent } from './chat-inbox/chat-inbox.component';
     HeaderComponent,
     UploadDialogComponent,
     AlertComponent,
-    ChatInboxComponent
+    ChatInboxComponent,
+    ChatPopUpComponent
   ],
   imports: [
     RouterModule.forRoot(routes, {useHash: false}),

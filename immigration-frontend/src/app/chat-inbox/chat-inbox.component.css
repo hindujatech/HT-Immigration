@@ -1,5 +1,5 @@
 .chat-messages-show-container {
-    background: #c3c3c3;
+    background: #02195e;
     height: 400px;
     display: flex;
     flex-direction: column;
@@ -13,9 +13,10 @@
 }
 
 .chat-messages-create-container {
-    background: #e4d8d8;
+    background: #fff;
     height: 50px;
-    display: flex;
+    border: solid 2px #02195e;
+    /* display: flex; */
     /* justify-content: center; */
 }
 

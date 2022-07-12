@@ -6,14 +6,16 @@
     <div class="chat-messages-create-container">
         <form [formGroup]="personalDetails">
             <div class="row">
-                <div class="col-md-3 mg-t--1 mg-md-t-0">
+                <div class="col-md-11 mg-t--1 mg-md-t-0">
                     <input class="chat-messages-create-input" formControlName="firstname" [(ngModel)]="message" placeholder="type your message" matNativeControl autocomplete="off">
                 </div>
-            </div>
-            <div class="col-lg-2">
-                <!-- <button class="chat-messages-create-button" (click)="SendMessage()"> Send </button> -->
-                <button mat-button class="chat-messages-create-button" (click)="SendMessage()">Send</button>
-                <!-- <button mat-flat-button class="send_btn" (click)="SendMessage()">Send</button> -->
+
+                <div class="col-lg-1">
+                    <span (click)="SendMessage()"><mat-icon style="margin-top: 10px;">send</mat-icon></span>
+                    <!-- <button class="chat-messages-create-button" (click)="SendMessage()"> Send </button> -->
+                    <!-- <button mat-button class="chat-messages-create-button" (click)="SendMessage()">Send</button> -->
+                    <!-- <button mat-flat-button class="send_btn" (click)="SendMessage()">Send</button> -->
+                </div>
             </div>
         </form>
     </div>

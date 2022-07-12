@@ -10,6 +10,8 @@ import * as XLSX from 'xlsx';
 import { BACK_END_URL } from 'src/app/app.global';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { files } from 'jszip';
+import { MatDialog } from '@angular/material/dialog';
+import { ChatPopUpComponent } from 'src/app/chat-pop-up/chat-pop-up.component';
 const moment = require('moment');
 
 
@@ -37,7 +39,7 @@ export class ImmigrationViewComponent implements OnInit {
 
 
   constructor(private immigrationService: ImmigrationService, private _snackBar: MatSnackBar, private router: Router, private route: ActivatedRoute,
-    private http: HttpClient) { }
+    private http: HttpClient, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params.id;
@@ -123,26 +125,6 @@ export class ImmigrationViewComponent implements OnInit {
       })
       .catch(err => console.error("download error = ", err));
   }
-
-  // downloadAllEmpDocuments() {
-  //   var zip = new JSZip();
-  //   for (let i = 0; i < this.employeeDocs?.length; i++) {
-  //     let headers = new HttpHeaders({
-  //       "Authorization": "Bearer " + this.user.token,
-  //     });
-  //     this.http.get(BACK_END_URL + this.employeeDocs[i].filepath, { headers, responseType: "blob" })
-  //       .toPromise()
-  //       .then(blob => {
-  //         saveAs(blob, this.employeeDocs[i].originalname);
-  //       })
-  //       .catch(err => console.error("download error = ", err));
-  //     //  for (let i = 0; i < this.employeeDocs?.length; i++) {
-
-  //     //  saveAs(BACK_END_URL+this.employeeDocs[i].filepath, this.employeeDocs[i].originalname); 
-
-  //   }
-
-  // }
 
   downloadAllEmpDocuments() {
     console.log(this.employeeDocs)
@@ -241,6 +223,18 @@ export class ImmigrationViewComponent implements OnInit {
     this.test = val;
     console.log(this.test);
     localStorage.setItem("imgView", JSON.stringify(this.test));
+  }
+
+  openDialog(element: any, docs: any): void {
+    console.log("element",element);
+    const dialogRef = this.dialog.open(ChatPopUpComponent, {
+      width: '850px',
+      data: this.emp_data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
 }
